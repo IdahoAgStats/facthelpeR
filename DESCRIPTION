@@ -1,16 +1,18 @@
 Package: facthelpeR
-Title: What the Package Does (One Line, Title Case)
+Title: Helper Functions for Importing and Cleaning Data
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Jacqueline",
+           family = "Tay",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "jacquelinejtay@gmail.com")
+Description: The main facthelpeR functions are used in the FACT project to curate variety testing trials.  The functions can: ...
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports:
+    readxl,
+    tibble
+
