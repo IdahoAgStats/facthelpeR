@@ -30,6 +30,7 @@ read.sheets <- function(file_name, data_folder, skip_df){
 #' This function can be incorporated into read.sheets/ read.sheets may become deprecated
 #'
 #' @inheritParams readxl::read_excel
+#' @param complete_cases A logical. The default TRUE will remove empty rows
 read.excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
                             complete_cases = TRUE){
 
@@ -60,6 +61,7 @@ read.excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
 #' @param unique_names A logical denoting whether make.unique() for the column names
 #' @import tibble
 #' @import readxl
+#' @import tidyr
 read.excelheader <- function(sheet_name, path, header_start, header_end, unique_names){
   # Read in full dataset and slice the header
   # If only read in the header, the columns without header names may be dropped

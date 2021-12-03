@@ -13,7 +13,7 @@
 #' the default is the concatenation of the file and sheet name
 #' Note: If header_end is NA, the file/sheet will be removed (not read in)
 #' @inheritParams read.excelsheet
-#' @import tidyverse
+#' @import readr
 #' @export
 read_multsheets <- function(data_folder,
                             df,

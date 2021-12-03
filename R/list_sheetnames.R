@@ -3,6 +3,9 @@
 #' @param data_folder A string pointing to the parent path
 #' @param files A vector of filenames that will be pasted to the parent path
 #' @param reg_ex A regular expression to select sheets using
+#' @import purrr
+#' @import dplyr
+#' @import stringr
 #' @export
 list_sheetnames <- function(data_folder, files, reg_ex = NULL){
 
