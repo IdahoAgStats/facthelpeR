@@ -1,13 +1,10 @@
-library(tidyverse)
-library(here)
-
+library(magrittr)
 data_folder <- testthat::test_path("test_example_files")
-##data_folder <- here::here("tests", "test_example_files/")
 
 test_that("read_multsheets reads in the correct number of elements", {
   files <- list.files(data_folder, recursive = TRUE, pattern = "test_file(1|2).xlsx")
 
-  maps_sheets <- list.sheetnames(data_folder, files) #%>% mutate(list_names = sheet)
+  maps_sheets <- list_sheetnames(data_folder, files) #%>% dplyr::mutate(list_names = sheet)
 
   maps_list <- read_multsheets(data_folder, maps_sheets, col_names = TRUE)
 
@@ -17,7 +14,7 @@ test_that("read_multsheets reads in the correct number of elements", {
 test_that("read_multsheets reads in the correct header", {
   files <- list.files(data_folder, recursive = TRUE, pattern = "test_file(1|2).xlsx")
 
-  maps_sheets <- list.sheetnames(data_folder, files) #%>% mutate(list_names = sheet)
+  maps_sheets <- list_sheetnames(data_folder, files) #%>% dplyr::mutate(list_names = sheet)
 
   maps_list <- read_multsheets(data_folder, maps_sheets, col_names = TRUE)
 
@@ -39,8 +36,8 @@ test_that("read_multsheets skips the correct rows and reads in the data as expec
   #files <- list.files(data_folder, recursive = TRUE, pattern = ".csv")
 
   # the current functions don't work for .csv
-  sheets <- list.sheetnames(data_folder, "test_skiprows.xls") %>%
-    mutate(header_end = 4) %>% mutate(header_start = NA)
+  sheets <- list_sheetnames(data_folder, "test_skiprows.xls") %>%
+    dplyr::mutate(header_end = 4) %>% dplyr::mutate(header_start = NA)
 
   df_list <- read_multsheets(data_folder, sheets, col_names = TRUE)
   ans <- tibble(name1 = c(1,2,3), name2 = c("a", "b", "c"), name3 = c("a", "b", "c"))
@@ -51,9 +48,9 @@ test_that("read_multsheets skips the correct rows and reads in the data as expec
 
 
 test_that("read_multsheets reads in multiple header rows correctly", {
-  sheets <- list.sheetnames(data_folder, "test_skiprows.xls") %>%
-    mutate(header_start = 2) %>%
-    mutate(header_end = 4)
+  sheets <- list_sheetnames(data_folder, "test_skiprows.xls") %>%
+    dplyr::mutate(header_start = 2) %>%
+    dplyr::mutate(header_end = 4)
 
   df_list <- read_multsheets(data_folder, sheets, col_names = TRUE)
   ans <- tibble(name1 = c(1,2,3), name2 = c("a", "b", "c"), name3 = c("a", "b", "c"))
@@ -63,9 +60,9 @@ test_that("read_multsheets reads in multiple header rows correctly", {
 })
 
 test_that("read_multsheets reads in multiple header rows correctly", {
-  sheets <- list.sheetnames(data_folder, "test_header.xlsx") %>%
-    mutate(header_start = 1) %>%
-    mutate(header_end = 2)
+  sheets <- list_sheetnames(data_folder, "test_header.xlsx") %>%
+    dplyr::mutate(header_start = 1) %>%
+    dplyr::mutate(header_end = 2)
 
   df_list <- read_multsheets(data_folder, sheets, col_names = TRUE)
   ans <- tibble(col = 1:3, col...2 = 1:3, col_3 = 1:3, ...4 = 1:3)

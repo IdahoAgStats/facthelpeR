@@ -29,7 +29,7 @@ read.sheets <- function(file_name, data_folder, skip_df){
 #' Read one excel sheet with read_excel
 #' This function can be incorporated into read.sheets/ read.sheets may become deprecated
 #'
-#' @inheritParams read_excel
+#' @inheritParams readxl::read_excel
 read.excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
                             complete_cases = TRUE){
 
@@ -48,42 +48,16 @@ read.excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
   sheet_df
 }
 
-
-# Can use the below code to reproduce the structure of read.sheets
-# b <- lapply(files, function(x){
-#   df2 <- maps_sheets %>% filter(filename == x)
-#   a <- read.multsheets(df2, na = na_values)
-#
-# }) %>% set_names(files)
-
-#'
-#' List the names of all sheets within given files
-#' @param data_folder A string pointing to the parent path
-#' @param files A vector of filenames that will be pasted to the parent path
-#' @param reg_ex A regular expression to select sheets using
-#' @export
-list.sheetnames <- function(data_folder, files, reg_ex = NULL){
-
-  sheet_info <- map(files, ~ data.frame(filename = .x,
-                                        sheets = excel_sheets(paste(data_folder, .x, sep = "/"))))
-  sheet_info <- bind_rows(sheet_info)
-
-  if (!is.null(reg_ex)){
-    sheet_info <- sheet_info %>%
-      filter(str_detect(sheets, regex(reg_ex, ignore_case = T)))
-  }
-  return(sheet_info)
-}
-
 #' Read excel headers that span over multiple rows
 #'
-#' @param sheet_name
-#' @param path
+#' @param sheet_name A string denoting the sheetname
+#' @param path A path to the file that contains the sheet
 #' @param header_start A numeric denoting the row number of the start of the header
 #' Note!: If there are any blank rows at the top of the sheet, start the row counting
 #' at the first filled row
 #' https://github.com/tidyverse/readxl/issues/194#issuecomment-266829259
 #' @param header_end A numeric denoting the row number of the end of the header
+#' @param unique_names A logical denoting whether make.unique() for the column names
 #' @import tibble
 #' @import readxl
 read.excelheader <- function(sheet_name, path, header_start, header_end, unique_names){
