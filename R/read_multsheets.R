@@ -14,9 +14,8 @@
 #' Note: If header_end is NA, the file/sheet will be removed (not read in)
 #' @inheritParams read.excelsheet
 #' @import tidyverse
-#' @import
 #' @export
-read.multsheets <- function(data_folder,
+read_multsheets <- function(data_folder,
                             df,
                             na = c("NA"),
                             col_names,
@@ -50,7 +49,7 @@ read.multsheets <- function(data_folder,
     pmap(function(...) {
       current <- tibble(...)
       # do cool stuff and access content from current row with
-      path <- here(data_folder, current$filename)
+      path <- paste(data_folder, current$filename, sep = "/")
 
       if (str_detect(current$filename,".xls")){
         #print(current$filename)
@@ -88,4 +87,4 @@ read.multsheets <- function(data_folder,
 
   return(dat_ls)
 }
-#
+

@@ -1,4 +1,8 @@
-data_folder <- here::here("tests", "test_example_files/")
+library(tidyverse)
+library(here)
+
+data_folder <- testthat::test_path("test_example_files")
+##data_folder <- here::here("tests", "test_example_files/")
 
 test_that("read_multsheets reads in the correct number of elements", {
   files <- list.files(data_folder, recursive = TRUE, pattern = "test_file(1|2).xlsx")
