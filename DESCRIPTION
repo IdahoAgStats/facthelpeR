@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "jacquelinejtay@gmail.com")
 Description: The main facthelpeR functions are used in the FACT project to curate variety testing trials.  The functions can: ...
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -15,7 +15,12 @@ RoxygenNote: 7.1.1
 Depends:
     readxl,
     tibble,
-    tidyverse
+    tidyverse,
+    purrr,
+    dplyr,
+    stringr,
+    readr,
+    tidyr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
