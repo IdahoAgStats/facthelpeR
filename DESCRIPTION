@@ -15,7 +15,6 @@ RoxygenNote: 7.1.1
 Depends:
     readxl,
     tibble,
-    tidyverse,
     purrr,
     dplyr,
     stringr,
