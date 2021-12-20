@@ -1,4 +1,5 @@
 #' List the names of all sheets within given files
+#'
 #' Note: this function was previously list.sheetnames()
 #' @param data_folder A string pointing to the parent path
 #' @param files A vector of filenames that will be pasted to the parent path
@@ -7,6 +8,7 @@
 #' @import dplyr
 #' @import stringr
 #' @export
+#' @family readin functions
 list_sheetnames <- function(data_folder, files, reg_ex = NULL){
 
   sheet_info <- map(files, ~ data.frame(filename = .x,

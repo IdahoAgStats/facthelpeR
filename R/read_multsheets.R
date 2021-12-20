@@ -15,6 +15,7 @@
 #' @inheritParams read_excelsheet
 #' @import readr
 #' @export
+#' @family readin functions
 read_multsheets <- function(data_folder,
                             df,
                             na = c("NA"),

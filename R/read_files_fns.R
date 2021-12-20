@@ -2,6 +2,7 @@
 #'
 #' This function may be deprecated (read_multsheets() has many improvements
 #' over read_sheets)
+#' Note: this function was previously read.sheets()
 #'
 #' @param file_name A string of a filename
 #' @param data_folder A string of the path of the folder that contains the file
@@ -9,6 +10,7 @@
 #' which contain string of filename, string of sheet name, and integer of number of rows to skip, respectively
 #' https://stackoverflow.com/questions/60898358/how-can-i-add-the-sheet-name-to-my-data-frame-as-a-variable
 #' @import readxl
+#' @family readin functions
 read_sheets <- function(file_name, data_folder, skip_df){
   print(file_name)
   skip_df_filt <- skip_df %>% filter(filename == file_name) %>% filter(!is.na(skip))
@@ -32,9 +34,11 @@ read_sheets <- function(file_name, data_folder, skip_df){
 #' Read one excel sheet with read_excel
 #' This function can be incorporated into read.sheets/ read.sheets may become deprecated
 #'
+#' Note: this function was previously read.excelsheet()
 #' @inheritParams readxl::read_excel
 #' @importFrom stats complete.cases
 #' @param complete_cases A logical. The default TRUE will remove empty rows
+#' @family readin functions
 read_excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
                             complete_cases = TRUE){
 
@@ -55,6 +59,8 @@ read_excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
 
 #' Read excel headers that span over multiple rows
 #'
+#' Note: this function was previously read.excelheader()
+#'
 #' @param sheet_name A string denoting the sheetname
 #' @param path A path to the file that contains the sheet
 #' @param header_start A numeric denoting the row number of the start of the header
@@ -66,6 +72,7 @@ read_excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
 #' @import tibble
 #' @import readxl
 #' @import tidyr
+#' @family readin functions
 read_excelheader <- function(sheet_name, path, header_start, header_end, unique_names){
   # Read in full dataset and slice the header
   # If only read in the header, the columns without header names may be dropped
