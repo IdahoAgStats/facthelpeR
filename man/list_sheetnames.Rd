@@ -2,8 +2,7 @@
 % Please edit documentation in R/list_sheetnames.R
 \name{list_sheetnames}
 \alias{list_sheetnames}
-\title{List the names of all sheets within given files
-Note: this function was previously list.sheetnames()}
+\title{List the names of all sheets within given files}
 \usage{
 list_sheetnames(data_folder, files, reg_ex = NULL)
 }
@@ -15,6 +14,13 @@ list_sheetnames(data_folder, files, reg_ex = NULL)
 \item{reg_ex}{A regular expression to select sheets using}
 }
 \description{
-List the names of all sheets within given files
 Note: this function was previously list.sheetnames()
 }
+\seealso{
+Other readin functions: 
+\code{\link{read_excelheader}()},
+\code{\link{read_excelsheet}()},
+\code{\link{read_multsheets}()},
+\code{\link{read_sheets}()}
+}
+\concept{readin functions}

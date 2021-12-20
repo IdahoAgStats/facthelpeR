@@ -47,3 +47,11 @@ types.}
 Read multiple sheets listed in a data.frame
 created by list.sheetnames
 }
+\seealso{
+Other readin functions: 
+\code{\link{list_sheetnames}()},
+\code{\link{read_excelheader}()},
+\code{\link{read_excelsheet}()},
+\code{\link{read_sheets}()}
+}
+\concept{readin functions}

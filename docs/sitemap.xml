@@ -16,6 +16,9 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/list.sheetnames.html</loc>
+  </url>
+  <url>
     <loc>/reference/list_sheetnames.html</loc>
   </url>
   <url>
@@ -28,6 +31,15 @@
     <loc>/reference/read.sheets.html</loc>
   </url>
   <url>
+    <loc>/reference/read_excelheader.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_excelsheet.html</loc>
+  </url>
+  <url>
     <loc>/reference/read_multsheets.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_sheets.html</loc>
   </url>
 </urlset>
