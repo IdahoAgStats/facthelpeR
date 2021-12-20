@@ -6,7 +6,7 @@ Authors@R:
            family = "Tay",
            role = c("aut", "cre"),
            email = "jacquelinejtay@gmail.com")
-Description: The main facthelpeR functions are used in the FACT project to curate variety testing trials.  The functions can: ...
+Description: Helper functions for importing data
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
