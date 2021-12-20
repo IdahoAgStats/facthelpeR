@@ -1,12 +1,15 @@
 #' Read in sheets
 #'
+#' This function may be deprecated (read_multsheets() has many improvements
+#' over read_sheets)
+#'
 #' @param file_name A string of a filename
 #' @param data_folder A string of the path of the folder that contains the file
 #' @param skip_df A data.frame containing the following columns: filename, sheets, and skip,
 #' which contain string of filename, string of sheet name, and integer of number of rows to skip, respectively
 #' https://stackoverflow.com/questions/60898358/how-can-i-add-the-sheet-name-to-my-data-frame-as-a-variable
 #' @import readxl
-read.sheets <- function(file_name, data_folder, skip_df){
+read_sheets <- function(file_name, data_folder, skip_df){
   print(file_name)
   skip_df_filt <- skip_df %>% filter(filename == file_name) %>% filter(!is.na(skip))
   print(skip_df_filt)
@@ -30,8 +33,9 @@ read.sheets <- function(file_name, data_folder, skip_df){
 #' This function can be incorporated into read.sheets/ read.sheets may become deprecated
 #'
 #' @inheritParams readxl::read_excel
+#' @importFrom stats complete.cases
 #' @param complete_cases A logical. The default TRUE will remove empty rows
-read.excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
+read_excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
                             complete_cases = TRUE){
 
   sheet_df <- read_excel(path = path,
@@ -62,7 +66,7 @@ read.excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
 #' @import tibble
 #' @import readxl
 #' @import tidyr
-read.excelheader <- function(sheet_name, path, header_start, header_end, unique_names){
+read_excelheader <- function(sheet_name, path, header_start, header_end, unique_names){
   # Read in full dataset and slice the header
   # If only read in the header, the columns without header names may be dropped
   header1 = read_excel(sheet_name,
@@ -88,5 +92,4 @@ read.excelheader <- function(sheet_name, path, header_start, header_end, unique_
 
   return(header3)
 }
-
 

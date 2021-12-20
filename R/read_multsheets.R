@@ -12,7 +12,7 @@
 #' which denote the name of the list object.  If list_names is not provided,
 #' the default is the concatenation of the file and sheet name
 #' Note: If header_end is NA, the file/sheet will be removed (not read in)
-#' @inheritParams read.excelsheet
+#' @inheritParams read_excelsheet
 #' @import readr
 #' @export
 read_multsheets <- function(data_folder,
@@ -53,8 +53,8 @@ read_multsheets <- function(data_folder,
 
       if (str_detect(current$filename,".xls")){
         #print(current$filename)
-        print("Using read.excelsheet")
-        dat <- read.excelsheet(path = path,
+        print("Using read_excelsheet")
+        dat <- read_excelsheet(path = path,
                                sheet = current$sheets,
                                skip = current$header_end-1,
                                na = na,
@@ -63,7 +63,7 @@ read_multsheets <- function(data_folder,
                                complete_cases = complete_cases)
 
         if (!is.na(current$header_start) & (current$header_start < current$header_end)){
-          header <- read.excelheader(current$sheets,
+          header <- read_excelheader(current$sheets,
                                      path,
                                      current$header_start,
                                      current$header_end, unique_names = TRUE)
