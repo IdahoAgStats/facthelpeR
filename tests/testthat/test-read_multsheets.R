@@ -1,5 +1,6 @@
 library(magrittr)
-data_folder <- testthat::test_path("test_example_files")
+controlled_vocab_folder <- testthat::test_path("test_controlled_vocab")
+
 
 test_that("read_multsheets reads in the correct number of elements", {
   files <- list.files(data_folder, recursive = TRUE, pattern = "test_file(1|2).xlsx")

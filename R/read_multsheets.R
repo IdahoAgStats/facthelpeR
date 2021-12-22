@@ -89,3 +89,28 @@ read_multsheets <- function(data_folder,
   return(dat_ls)
 }
 
+#' A wrapper for read_multsheets to maintain backwards compatibility
+#'
+#' @inheritParams read_multsheets
+#' @rdname read_multsheets
+#' @export
+read.multsheets <- function(data_folder,
+                            df,
+                            na = c("NA"),
+                            col_names,
+                            guess_max = 1000,
+                            complete_cases = TRUE){
+
+  message("This function name is being retained for backwards compatibility.
+          Please use read_multsheets()")
+
+  read_multsheets(data_folder = data_folder,
+                  df = df,
+                  na = na,
+                  col_names = col_names,
+                  guess_max = guess_max,
+                  complete_cases = complete_cases)
+
+
+}
+
