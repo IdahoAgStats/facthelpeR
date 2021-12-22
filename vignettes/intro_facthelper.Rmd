@@ -1,53 +1,37 @@
 ---
-title: "Curating Graebner OSU dataset"
-output:
-  minidown::mini_document:
-    code_folding:
-      source: hide
-      output: hide
-      message: show
-      warning: show
-      error: show
-    results_folding: hide #show, hide or none
-    framework: water
-    theme: light
-    toc: true
-    toc_float: true
-    toc_highlight: true
+title: "Introduction to facthelpeR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to facthelpeR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-```{r setup, eval = FALSE, include = FALSE}
-setwd(here::here())
-rmarkdown::render('./curation-rmd/Graebner/scripts/1_graebner_curation.Rmd', 
-                  output_dir = './curation-rmd/Graebner/output/graebner_curation')
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 ```
-Information/ links for more information about the program and data:
+
+```{r setup}
+library(facthelpeR)
+library(here)
+```
+Information/ links for more information about the  example program and data:
 https://agsci.oregonstate.edu/kbrec/crops/small-grains
 https://agsci.oregonstate.edu/mes/crops/wheat
 https://agsci.oregonstate.edu/system/files/x2019_ontario_elite_wheat_trial_2018-19_trial_26june2020.pdf
 https://docs.google.com/spreadsheets/d/16C8GGw-vlITDhpl_ldUWZeJIFMvSwe1cTHmqI2aEQao/edit#gid=571577693
 
-## Specify dependencies and file structure:
-Note!! knitroutputfolder name should match rmarkdown::render output_dir >>>>
-
 ### Graebner files
 ```{r}
-library(here)
-source(here("R", "dependencies.R"))
-main_folder <- "curation-rmd/Graebner"
-knitroutputfolder <- here(main_folder, "output/graebner_curation")
+main_folder <- "inst/extdata/OSU_2019_example"
 data_folder <- here(main_folder, "data-raw")
 auxiliary_files <- here(main_folder, "auxiliary_files")
-#cultivar_aux_files <- here(auxiliary_files, "neely_cultivar")
-#cultivar_data_folder <- here("controlled_vocab", "cultivar_original", "Neely")
 ```
-### Database files
-Note: readin.db() won't run properly if files are open in excel
-```{r}
-db <- readin.db()
-db_metadata<- list.db_var("trials_metadata")
-```
-
 ## Manual edits:
+[Note any manual changes to the raw files here]
 
 ## Read in raw data:
 ### Generate a list of all of the files and sheets
@@ -70,15 +54,18 @@ sheet_info <- data.frame(filename = files) %>%
 data_raw1 <- read.multsheets(data_folder, sheet_info, na = c("NA"), col_names = TRUE)
 data_raw2 <- imap(data_raw1, function(x, y){ x %>% mutate(sourcefile = y)})
 
-save(data_raw2,
-     file = here(knitroutputfolder, "data_raw2.RData"))
+
+knitr::kable(head(data_raw2[[1]]))
+knitr::kable(head(data_raw2[[2]]))
+#save(data_raw2,
+ #    file = here(knitroutputfolder, "data_raw2.RData"))
 ```
 ### Remove duplicate columns
 Use rm.dup_col() because it can detect and remove duplicates when:
 - column names are not exact, column contents are
 - if the only difference between two column contents are that one has some NAs,
 then that column is removed and the other is retained
-```{r}
+```{r, eval = FALSE}
 data_raw3 <- imap(data_raw2, function(x,y){
     print(y)
     rm.dup_col(x, FALSE) %>% 
@@ -89,7 +76,7 @@ data_raw3 <- imap(data_raw2, function(x,y){
 
 ## Curate column names:
 ### Get column names
-```{r}
+```{r, eval = FALSE}
 colnames <- summarize.variables(data_raw3, reg_ex = NULL)
 colnames_summary <- colnames %>%
   group_by(colname) %>%
@@ -121,7 +108,7 @@ rm_col argument = TRUE)
 to controlled vocabulary using the correct formatting, which is described in the README
 (I usually get Julia's opinion on this, especially before adding new vocabularies)
 
-```{r}
+```{r, eval = FALSE}
 colnames_curation <- 
   read.csv(here(auxiliary_files, "colnames_summary_aux.csv")) %>%
   mutate(controlled_vocab = 
@@ -137,7 +124,7 @@ save(data_raw_rename1,
      file = here(knitroutputfolder, "data_raw_rename1.RData"))
 ```
 ## Bind all data.frames
-```{r}
+```{r, eval = FALSE}
 data_all1 <- bind_rows(data_raw_rename1)
 save(data_all1,
      file = here(knitroutputfolder,"data_all1.RData"))
@@ -149,11 +136,11 @@ save(data_all1,
 ## Validate trial data
 See README for more information on the codebooks (Using codebooks_all_db.csv)
 used to validate the data
-```{r}
+```{r, eval = FALSE}
 df_validate <- data_all1
 ```
 ### Check column names
-```{r, results.folding = NULL, results = 'asis'}
+```{r, results.folding = NULL, results = 'asis', eval = FALSE}
 colname_valid <- validate_colnames(df_validate, "trial_data") %>%
     select(comment, colname_data, colname_codebook, required, col_num) 
 
@@ -171,7 +158,7 @@ col_info <- find_col_info(data_all1,
 ```
 
 ### Check column contents
-```{r, results.folding = NULL, results = 'asis'}
+```{r, results.folding = NULL, results = 'asis', eval = FALSE}
 colcontent_valid <- confront_data(df_validate, df_type = "trial_data")
 
 colcontent_summary <- colcontent_valid[["summary"]]
@@ -186,11 +173,11 @@ colcontent_violate <-
 ```
 
 ## Validate metadata
-```{r}
+```{r, eval = FALSE}
 metadata_validate <- data_all1
 ```
 ### Check column names
-```{r, results.folding = NULL, results = 'asis'}
+```{r, results.folding = NULL, results = 'asis', eval = FALSE}
 metadata_colname_valid <- validate_colnames(metadata_validate, "trials_metadata") %>%
     select(comment, colname_data, colname_codebook, required, col_num) 
 
@@ -199,11 +186,12 @@ kable(metadata_colname_valid)
 ```
 
 ### Check column contents
-```{r, results.folding = NULL, results = 'asis'}
+```{r, results.folding = NULL, results = 'asis', eval = FALSE}
 metadata_colcontent_valid <- confront_data(metadata_validate, df_type = "trials_metadata")
 
 metadata_colcontent_summary <- metadata_colcontent_valid[["summary"]]
 kable(metadata_colcontent_summary)
 
 ```
+
 
