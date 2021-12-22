@@ -1,0 +1,209 @@
+---
+title: "Curating Graebner OSU dataset"
+output:
+  minidown::mini_document:
+    code_folding:
+      source: hide
+      output: hide
+      message: show
+      warning: show
+      error: show
+    results_folding: hide #show, hide or none
+    framework: water
+    theme: light
+    toc: true
+    toc_float: true
+    toc_highlight: true
+---
+```{r setup, eval = FALSE, include = FALSE}
+setwd(here::here())
+rmarkdown::render('./curation-rmd/Graebner/scripts/1_graebner_curation.Rmd', 
+                  output_dir = './curation-rmd/Graebner/output/graebner_curation')
+```
+Information/ links for more information about the program and data:
+https://agsci.oregonstate.edu/kbrec/crops/small-grains
+https://agsci.oregonstate.edu/mes/crops/wheat
+https://agsci.oregonstate.edu/system/files/x2019_ontario_elite_wheat_trial_2018-19_trial_26june2020.pdf
+https://docs.google.com/spreadsheets/d/16C8GGw-vlITDhpl_ldUWZeJIFMvSwe1cTHmqI2aEQao/edit#gid=571577693
+
+## Specify dependencies and file structure:
+Note!! knitroutputfolder name should match rmarkdown::render output_dir >>>>
+
+### Graebner files
+```{r}
+library(here)
+source(here("R", "dependencies.R"))
+main_folder <- "curation-rmd/Graebner"
+knitroutputfolder <- here(main_folder, "output/graebner_curation")
+data_folder <- here(main_folder, "data-raw")
+auxiliary_files <- here(main_folder, "auxiliary_files")
+#cultivar_aux_files <- here(auxiliary_files, "neely_cultivar")
+#cultivar_data_folder <- here("controlled_vocab", "cultivar_original", "Neely")
+```
+### Database files
+Note: readin.db() won't run properly if files are open in excel
+```{r}
+db <- readin.db()
+db_metadata<- list.db_var("trials_metadata")
+```
+
+## Manual edits:
+
+## Read in raw data:
+### Generate a list of all of the files and sheets
+If header is not in the first row, 
+write.csv(sheet_info...) and manually fill in the 
+number of rows to skip in each sheet.  See read.multsheets() for more
+information.
+```{r}
+files <- list.files(data_folder, recursive = TRUE, pattern = ".csv")
+
+sheet_info <- data.frame(filename = files) %>% 
+  filter(!str_detect(filename, "curation_files")) %>%
+  mutate(list_names = basename(filename)) %>%
+  mutate(list_names = str_remove(list_names, ".csv")) %>%
+  mutate(year = parse_number(filename)) %>%
+  mutate(list_names = ifelse(!str_detect(list_names, '[0-9]'), paste(list_names, year, sep = "_"), list_names))
+```
+### Use read.multsheets()
+```{r}
+data_raw1 <- read.multsheets(data_folder, sheet_info, na = c("NA"), col_names = TRUE)
+data_raw2 <- imap(data_raw1, function(x, y){ x %>% mutate(sourcefile = y)})
+
+save(data_raw2,
+     file = here(knitroutputfolder, "data_raw2.RData"))
+```
+### Remove duplicate columns
+Use rm.dup_col() because it can detect and remove duplicates when:
+- column names are not exact, column contents are
+- if the only difference between two column contents are that one has some NAs,
+then that column is removed and the other is retained
+```{r}
+data_raw3 <- imap(data_raw2, function(x,y){
+    print(y)
+    rm.dup_col(x, FALSE) %>% 
+    select(where(~!all(is.na(.))))
+})
+
+```
+
+## Curate column names:
+### Get column names
+```{r}
+colnames <- summarize.variables(data_raw3, reg_ex = NULL)
+colnames_summary <- colnames %>%
+  group_by(colname) %>%
+  summarize(across(everything(), ~ paste(na.omit(unique(.x)), collapse = "; ")))
+
+write.csv(colnames_summary, here(knitroutputfolder, "colnames_summary.csv"), row.names = FALSE)
+```
+### Rename columns using auxiliary files
+First, understand what each column means (description and units) by:
+
+1. checking through annual reports
+
+2. checking with Julia
+
+3. lastly, asking the PI
+
+Then, fill out the auxiliary file with the appropriate controlled vocabulary.
+
+If there isn't a corresponding controlled vocabulary, then need to:
+
+1. decide if the column can be captured by current controlled vocabulary. If so,
+standardize to the controlled vocabulary
+
+2. decide whether we need to keep the variable at all (can fill in auxiliary file
+with "rm_col" in the controlled_vocab column and rename.col() will remove them if 
+rm_col argument = TRUE)
+
+3. decide whether a new controlled vocabulary should be added. If so, add 
+to controlled vocabulary using the correct formatting, which is described in the README
+(I usually get Julia's opinion on this, especially before adding new vocabularies)
+
+```{r}
+colnames_curation <- 
+  read.csv(here(auxiliary_files, "colnames_summary_aux.csv")) %>%
+  mutate(controlled_vocab = 
+           ifelse(controlled_vocab == "", colname, controlled_vocab)) 
+
+data_raw_rename1 <- rename.col(data_raw3, 
+                              rename_df = colnames_curation, 
+                              rename_col = controlled_vocab, 
+                              old_col = colname, 
+                              rm_col = TRUE)
+
+save(data_raw_rename1,
+     file = here(knitroutputfolder, "data_raw_rename1.RData"))
+```
+## Bind all data.frames
+```{r}
+data_all1 <- bind_rows(data_raw_rename1)
+save(data_all1,
+     file = here(knitroutputfolder,"data_all1.RData"))
+```
+## Curate column contents:
+
+### location
+
+## Validate trial data
+See README for more information on the codebooks (Using codebooks_all_db.csv)
+used to validate the data
+```{r}
+df_validate <- data_all1
+```
+### Check column names
+```{r, results.folding = NULL, results = 'asis'}
+colname_valid <- validate_colnames(df_validate, "trial_data") %>%
+    select(comment, colname_data, colname_codebook, required, col_num) 
+
+kable(colname_valid)
+
+# To interact with the column names that still need to be fixed
+colname_valid_check <- colname_valid %>% 
+  filter(comment == "not present in codebook: trial_data")
+
+col_info <- find_col_info(data_all1, 
+                       cols_check = colname_valid_check$colname_data, 
+                       by_col = sourcefile)
+
+
+```
+
+### Check column contents
+```{r, results.folding = NULL, results = 'asis'}
+colcontent_valid <- confront_data(df_validate, df_type = "trial_data")
+
+colcontent_summary <- colcontent_valid[["summary"]]
+kable(colcontent_summary)
+
+# To check any fails interactively:
+var <- c("rep")
+colcontent_violate <- 
+  violating(df_validate, colcontent_valid[[2]][var]) %>% 
+  relocate(matches(var))
+
+```
+
+## Validate metadata
+```{r}
+metadata_validate <- data_all1
+```
+### Check column names
+```{r, results.folding = NULL, results = 'asis'}
+metadata_colname_valid <- validate_colnames(metadata_validate, "trials_metadata") %>%
+    select(comment, colname_data, colname_codebook, required, col_num) 
+
+kable(metadata_colname_valid)
+
+```
+
+### Check column contents
+```{r, results.folding = NULL, results = 'asis'}
+metadata_colcontent_valid <- confront_data(metadata_validate, df_type = "trials_metadata")
+
+metadata_colcontent_summary <- metadata_colcontent_valid[["summary"]]
+kable(metadata_colcontent_summary)
+
+```
+
