@@ -2,10 +2,20 @@
 % Please edit documentation in R/read_multsheets.R
 \name{read_multsheets}
 \alias{read_multsheets}
+\alias{read.multsheets}
 \title{Read multiple sheets listed in a data.frame
 created by list.sheetnames}
 \usage{
 read_multsheets(
+  data_folder,
+  df,
+  na = c("NA"),
+  col_names,
+  guess_max = 1000,
+  complete_cases = TRUE
+)
+
+read.multsheets(
   data_folder,
   df,
   na = c("NA"),
@@ -46,6 +56,8 @@ types.}
 \description{
 Read multiple sheets listed in a data.frame
 created by list.sheetnames
+
+A wrapper for read_multsheets to maintain backwards compatibility
 }
 \seealso{
 Other readin functions: 
