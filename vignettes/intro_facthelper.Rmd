@@ -1,6 +1,10 @@
 ---
 title: "Introduction to facthelpeR"
-output: rmarkdown::html_vignette
+author: "Jacqueline Tay"
+date: "`r Sys.Date()`"
+output: 
+rmarkdown::html_vignette:
+  fig_caption: yes
 vignette: >
   %\VignetteIndexEntry{Introduction to facthelpeR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,29 +17,35 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+## Introduction
+`facthelpeR` is a set of functions that are used to read in and do a first
+pass at cleaning up data.  This vignette will walk through the steps covered 
+by `facthelpeR`
 
-```{r setup}
+Load `facthelpeR`
+```{r setup, message = FALSE}
 library(facthelpeR)
 library(here)
 ```
-Information/ links for more information about the  example program and data:
-https://agsci.oregonstate.edu/kbrec/crops/small-grains
-https://agsci.oregonstate.edu/mes/crops/wheat
-https://agsci.oregonstate.edu/system/files/x2019_ontario_elite_wheat_trial_2018-19_trial_26june2020.pdf
-https://docs.google.com/spreadsheets/d/16C8GGw-vlITDhpl_ldUWZeJIFMvSwe1cTHmqI2aEQao/edit#gid=571577693
+## List the file structure of the data
+auxiliary_files is a folder that contains helper files that are used in the
+curation process.  Generally, the *_aux.csvs are manually edited to match
+controlled vocabularies.  They live in a separate folder than the output
+so that they don't get written over accidentally.
 
-### Graebner files
 ```{r}
 main_folder <- "inst/extdata/OSU_2019_example"
 data_folder <- here(main_folder, "data-raw")
-auxiliary_files <- here(main_folder, "auxiliary_files")
+auxiliary_files <- here(main_folder, "auxiliary_files") 
 ```
-## Manual edits:
-[Note any manual changes to the raw files here]
+## Manual edits
+If there are any mistakes in numeric values or one-off typos, sometimes it is
+faster to fix it in the raw files.  Note any manual changes here in the .Rmd
+for reproducibility.
 
-## Read in raw data:
+## Read in raw data
 ### Generate a list of all of the files and sheets
-If header is not in the first row, 
+If the header is not in the first row (or is spans multiple rows), 
 write.csv(sheet_info...) and manually fill in the 
 number of rows to skip in each sheet.  See read.multsheets() for more
 information.
