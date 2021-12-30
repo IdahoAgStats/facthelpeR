@@ -1,5 +1,5 @@
 library(magrittr)
-controlled_vocab_folder <- testthat::test_path("test_controlled_vocab")
+data_folder <- testthat::test_path("test_example_files")
 
 
 test_that("read_multsheets reads in the correct number of elements", {
