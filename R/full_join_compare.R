@@ -2,7 +2,9 @@
 #' add a suffix before the merge to track where the
 #' column originated
 #' @param suffix1 A string denoting the suffix to attach to the columns
-#'   associated with the first data.frame.  If NA, no suffix attached
+#' associated with the first data.frame.  If NA, no suffix attached
+#' @family df join functions
+#' @export
 full_join_compare <- function(df1, df2, by, suffix1, suffix2){
   
   if (is.null(names(by))){ names(by) = by }
