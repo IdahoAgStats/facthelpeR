@@ -2,3 +2,11 @@ reference:
 - title: Read-in functions
   contents:
   - has_concept("readin functions")
+
+- title: Clean columns functions
+  contents:
+  - has_concept("clean columns functions")
+
+- title: Join functions
+  contents:
+  - has_concept("join functions")
