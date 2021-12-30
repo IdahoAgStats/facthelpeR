@@ -12,7 +12,7 @@
 #' FALSE will retain the first
 #' @family clean columns functions
 #' @export
-rm.dup_col <- function(df, concat_names = TRUE){
+rm_dup_col <- function(df, concat_names = TRUE){
   df <- as.data.frame(df) # cannot be a tibble otherwise identical() will fail if column names differ
 
   cols <- list(first = 1:ncol(df), second = 1:ncol(df))
@@ -110,6 +110,19 @@ rm.dup_col <- function(df, concat_names = TRUE){
 test.col_id_elements <- function(df, colname){
 
   dim(table(df[[colname]], useNA = "no")) <= 1
+
+}
+
+
+#' A wrapper for rm_dup_col to maintain backwards compatibility
+#'
+#' @inheritParams rm_dup_col
+#' @rdname rm_dup_col
+#' @export
+rm.dup_col <- function(df, concat_names = TRUE){
+  message("This function name is being retained for backwards compatibility.
+          Please use rm_dup_col()")
+  rm_dup_col(df = df, concat_names = concat_names)
 
 }
 
