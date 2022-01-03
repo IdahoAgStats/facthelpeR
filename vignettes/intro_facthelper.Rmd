@@ -117,7 +117,7 @@ rm_col argument = TRUE)
 to controlled vocabulary using the correct formatting, which is described in the README
 (I usually get Julia's opinion on this, especially before adding new vocabularies)
 
-```{r, eval = FALSE}
+```{r}
 colnames_curation <- 
   read.csv(here(auxiliary_files, "colnames_summary_aux.csv")) %>%
   mutate(controlled_vocab = 
@@ -129,11 +129,14 @@ data_raw_rename1 <- rename.col(data_raw3,
                               old_col = colname, 
                               rm_col = TRUE)
 
+knitr::kable(head(data_raw_rename1[[1]]))
+knitr::kable(head(data_raw_rename1[[2]]))
+
 save(data_raw_rename1,
      file = here(knitroutput_folder, "data_raw_rename1.RData"))
 ```
 ## Bind all data.frames
-```{r, eval = FALSE}
+```{r}
 data_all1 <- bind_rows(data_raw_rename1)
 save(data_all1,
      file = here(knitroutput_folder,"data_all1.RData"))
