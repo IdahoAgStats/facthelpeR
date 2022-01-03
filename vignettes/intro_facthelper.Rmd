@@ -37,6 +37,7 @@ so that they don't get written over accidentally.
 main_folder <- "inst/extdata/OSU_2019_example"
 data_folder <- here(main_folder, "data-raw")
 auxiliary_files <- here(main_folder, "auxiliary_files") 
+knitroutput_folder <- here(main_folder, "output")
 ```
 ## Manual edits
 If there are any mistakes in numeric values or one-off typos, sometimes it is
@@ -66,7 +67,7 @@ data_raw2 <- imap(data_raw1, function(x, y){ x %>% mutate(sourcefile = y)})
 knitr::kable(head(data_raw2[[1]]))
 knitr::kable(head(data_raw2[[2]]))
 #save(data_raw2,
- #    file = here(knitroutputfolder, "data_raw2.RData"))
+ #    file = here(knitroutput_folder, "data_raw2.RData"))
 ```
 ### Remove duplicate columns
 Use rm.dup_col() because it can detect and remove duplicates when:
@@ -85,12 +86,12 @@ data_raw3 <- imap(data_raw2, function(x,y){
 ## Curate column names:
 ### Get column names
 ```{r}
-colnames <- summarize.variables(data_raw3, reg_ex = NULL)
+colnames <- summarize_variables(data_raw3, reg_ex = NULL)
 colnames_summary <- colnames %>%
   group_by(colname) %>%
   summarize(across(everything(), ~ paste(na.omit(unique(.x)), collapse = "; ")))
 
-#write.csv(colnames_summary, here(knitroutputfolder, "colnames_summary.csv"), row.names = FALSE)
+write.csv(colnames_summary, here(knitroutput_folder, "colnames_summary.csv"), row.names = FALSE)
 ```
 ### Rename columns using auxiliary files
 First, understand what each column means (description and units) by:
@@ -129,77 +130,15 @@ data_raw_rename1 <- rename.col(data_raw3,
                               rm_col = TRUE)
 
 save(data_raw_rename1,
-     file = here(knitroutputfolder, "data_raw_rename1.RData"))
+     file = here(knitroutput_folder, "data_raw_rename1.RData"))
 ```
 ## Bind all data.frames
 ```{r, eval = FALSE}
 data_all1 <- bind_rows(data_raw_rename1)
 save(data_all1,
-     file = here(knitroutputfolder,"data_all1.RData"))
+     file = here(knitroutput_folder,"data_all1.RData"))
 ```
-## Curate column contents:
+## Curate column contents
 
-### location
-
-## Validate trial data
-See README for more information on the codebooks (Using codebooks_all_db.csv)
-used to validate the data
-```{r, eval = FALSE}
-df_validate <- data_all1
-```
-### Check column names
-```{r, results.folding = NULL, results = 'asis', eval = FALSE}
-colname_valid <- validate_colnames(df_validate, "trial_data") %>%
-    select(comment, colname_data, colname_codebook, required, col_num) 
-
-kable(colname_valid)
-
-# To interact with the column names that still need to be fixed
-colname_valid_check <- colname_valid %>% 
-  filter(comment == "not present in codebook: trial_data")
-
-col_info <- find_col_info(data_all1, 
-                       cols_check = colname_valid_check$colname_data, 
-                       by_col = sourcefile)
-
-
-```
-
-### Check column contents
-```{r, results.folding = NULL, results = 'asis', eval = FALSE}
-colcontent_valid <- confront_data(df_validate, df_type = "trial_data")
-
-colcontent_summary <- colcontent_valid[["summary"]]
-kable(colcontent_summary)
-
-# To check any fails interactively:
-var <- c("rep")
-colcontent_violate <- 
-  violating(df_validate, colcontent_valid[[2]][var]) %>% 
-  relocate(matches(var))
-
-```
-
-## Validate metadata
-```{r, eval = FALSE}
-metadata_validate <- data_all1
-```
-### Check column names
-```{r, results.folding = NULL, results = 'asis', eval = FALSE}
-metadata_colname_valid <- validate_colnames(metadata_validate, "trials_metadata") %>%
-    select(comment, colname_data, colname_codebook, required, col_num) 
-
-kable(metadata_colname_valid)
-
-```
-
-### Check column contents
-```{r, results.folding = NULL, results = 'asis', eval = FALSE}
-metadata_colcontent_valid <- confront_data(metadata_validate, df_type = "trials_metadata")
-
-metadata_colcontent_summary <- metadata_colcontent_valid[["summary"]]
-kable(metadata_colcontent_summary)
-
-```
-
+## See `factcuratoR` package for validating columns and column contents
 
