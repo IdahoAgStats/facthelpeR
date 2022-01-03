@@ -55,9 +55,7 @@ files <- list.files(data_folder, recursive = TRUE, pattern = ".csv")
 sheet_info <- data.frame(filename = files) %>% 
   filter(!str_detect(filename, "curation_files")) %>%
   mutate(list_names = basename(filename)) %>%
-  mutate(list_names = str_remove(list_names, ".csv")) %>%
-  mutate(year = parse_number(filename)) %>%
-  mutate(list_names = ifelse(!str_detect(list_names, '[0-9]'), paste(list_names, year, sep = "_"), list_names))
+  mutate(list_names = str_remove(list_names, ".csv")) 
 ```
 ### Use read.multsheets()
 ```{r}
@@ -75,10 +73,10 @@ Use rm.dup_col() because it can detect and remove duplicates when:
 - column names are not exact, column contents are
 - if the only difference between two column contents are that one has some NAs,
 then that column is removed and the other is retained
-```{r, eval = FALSE}
+```{r}
 data_raw3 <- imap(data_raw2, function(x,y){
     print(y)
-    rm.dup_col(x, FALSE) %>% 
+    rm_dup_col(x, FALSE) %>% 
     select(where(~!all(is.na(.))))
 })
 
@@ -86,13 +84,13 @@ data_raw3 <- imap(data_raw2, function(x,y){
 
 ## Curate column names:
 ### Get column names
-```{r, eval = FALSE}
+```{r}
 colnames <- summarize.variables(data_raw3, reg_ex = NULL)
 colnames_summary <- colnames %>%
   group_by(colname) %>%
   summarize(across(everything(), ~ paste(na.omit(unique(.x)), collapse = "; ")))
 
-write.csv(colnames_summary, here(knitroutputfolder, "colnames_summary.csv"), row.names = FALSE)
+#write.csv(colnames_summary, here(knitroutputfolder, "colnames_summary.csv"), row.names = FALSE)
 ```
 ### Rename columns using auxiliary files
 First, understand what each column means (description and units) by:

@@ -52,15 +52,15 @@
           <p class="section-desc"></p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="list_sheetnames.html">list_sheetnames()</a></code> </p>
+          <p><code><a href="list_sheetnames.html">list_sheetnames()</a></code> <code><a href="list_sheetnames.html">list.sheetnames()</a></code> </p>
         </td>
         <td><p>List the names of all sheets within given files</p></td>
       </tr><tr><td>
-          <p><code><a href="read_excelheader.html">read_excelheader()</a></code> </p>
+          <p><code><a href="read_excelheader.html">read_excelheader()</a></code> <code><a href="read_excelheader.html">read.excelheader()</a></code> </p>
         </td>
         <td><p>Read excel headers that span over multiple rows</p></td>
       </tr><tr><td>
-          <p><code><a href="read_excelsheet.html">read_excelsheet()</a></code> </p>
+          <p><code><a href="read_excelsheet.html">read_excelsheet()</a></code> <code><a href="read_excelsheet.html">read.excelsheet()</a></code> </p>
         </td>
         <td><p>Read one excel sheet with read_excel
 This function can be incorporated into read.sheets/ read.sheets may become deprecated</p></td>
@@ -70,29 +70,48 @@ This function can be incorporated into read.sheets/ read.sheets may become depre
         <td><p>Read multiple sheets listed in a data.frame
 created by list.sheetnames</p></td>
       </tr><tr><td>
-          <p><code><a href="read_sheets.html">read_sheets()</a></code> </p>
+          <p><code><a href="read_sheets.html">read_sheets()</a></code> <code><a href="read_sheets.html">read.sheets()</a></code> </p>
         </td>
         <td><p>Read in sheets</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
-          <h2 id="function-rename-wrappers">Function rename wrappers <a href="#function-rename-wrappers" class="anchor" aria-hidden="true"></a></h2>
+          <h2 id="clean-columns-functions">Clean columns functions <a href="#clean-columns-functions" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="list.sheetnames.html">list.sheetnames()</a></code> </p>
+          <p><code><a href="rm_dup_col.html">rm_dup_col()</a></code> <code><a href="rm_dup_col.html">rm.dup_col()</a></code> </p>
         </td>
-        <td><p>A wrapper for list_sheetnames to maintain backwards compatibility</p></td>
+        <td><p>Remove duplicate columns</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="join-functions">Join functions <a href="#join-functions" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody></tbody><tbody><tr><th colspan="2">
+          <h2 id="join-functions">Join functions <a href="#join-functions" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="find_col_info.html">find_col_info()</a></code> </p>
+        </td>
+        <td><p>Find column information in a data.frame</p></td>
       </tr><tr><td>
-          <p><code><a href="read.excelheader.html">read.excelheader()</a></code> </p>
+          <p><code><a href="select.colsfromlist.html">select(<i>&lt;colsfromlist&gt;</i>)</a></code> </p>
         </td>
-        <td><p>A wrapper for read_excelheader to maintain backwards compatibility</p></td>
+        <td><p>Select columns from data.frames stored within a list</p></td>
       </tr><tr><td>
-          <p><code><a href="read.excelsheet.html">read.excelsheet()</a></code> </p>
+          <p><code><a href="summarize.colnames.html">summarize(<i>&lt;colnames&gt;</i>)</a></code> </p>
         </td>
-        <td><p>A wrapper for read_excelsheet to maintain backwards compatibility</p></td>
+        <td><p>Create a list of column names that match a given regex for all data.frames in given list
+The function returns the proportion of the data.frames that contain the column name</p></td>
       </tr><tr><td>
-          <p><code><a href="read.sheets.html">read.sheets()</a></code> </p>
+          <p><code><a href="summarize.ncol.html">summarize(<i>&lt;ncol&gt;</i>)</a></code> </p>
         </td>
-        <td><p>A wrapper for read_sheets to maintain backwards compatibility</p></td>
+        <td><p>Summarise the number of columns per data.frame that match a given regex
+over a list of data.frames
+This function detects columns with similar names within a dataset</p></td>
+      </tr><tr><td>
+          <p><code><a href="summarize.variables.html">summarize(<i>&lt;variables&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Summarize information on variables that match a given regex</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

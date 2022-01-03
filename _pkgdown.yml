@@ -10,3 +10,7 @@ reference:
 - title: Join functions
   contents:
   - has_concept("join functions")
+
+- title: Join functions
+  contents:
+  - has_concept("summarize column functions")

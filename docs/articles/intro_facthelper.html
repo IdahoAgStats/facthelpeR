@@ -71,7 +71,7 @@
       <h1 data-toc-skip>Introduction to facthelpeR</h1>
                         <h4 data-toc-skip class="author">Jacqueline Tay</h4>
             
-            <h4 data-toc-skip class="date">2021-12-22</h4>
+            <h4 data-toc-skip class="date">2022-01-03</h4>
       
       
       <div class="hidden name"><code>intro_facthelper.Rmd</code></div>
@@ -116,13 +116,7 @@
 <span class="va">sheet_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="va">files</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">filename</span>, <span class="st">"curation_files"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>list_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>list_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">list_names</span>, <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/readr/man/parse_number.html" class="external-link">parse_number</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>list_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">list_names</span>, <span class="st">'[0-9]'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">list_names</span>, <span class="va">year</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span>, <span class="va">list_names</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning: 2 parsing failures.</span>
-<span class="co">#&gt; row col expected           actual</span>
-<span class="co">#&gt;   1  -- a number HWEYT_Condon.csv</span>
-<span class="co">#&gt;   2  -- a number HWEYT_Dufur.csv</span></code></pre></div>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>list_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">list_names</span>, <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="use-read-multsheets">Use read.multsheets()<a class="anchor" aria-label="anchor" href="#use-read-multsheets"></a>
@@ -145,7 +139,8 @@
 <span class="co">#&gt;   Test = <span style="color: #00BB00;">col_double()</span><span>,</span></span>
 <span class="co">#&gt;   Protein = <span style="color: #00BB00;">col_double()</span><span>,</span></span>
 <span class="co">#&gt;   Weight = <span style="color: #00BB00;">col_double()</span><span>,</span></span>
-<span class="co">#&gt;   Moisture = <span style="color: #00BB00;">col_double()</span></span>
+<span class="co">#&gt;   Moisture = <span style="color: #00BB00;">col_double()</span><span>,</span></span>
+<span class="co">#&gt;   rep_dup = <span style="color: #00BB00;">col_double()</span></span>
 <span class="co">#&gt; )</span>
 <span class="co">#&gt; [1] "Using read_csv"</span>
 <span class="co">#&gt; </span>
@@ -169,17 +164,18 @@
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data_raw2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table style="width:100%;" class="table">
 <colgroup>
-<col width="5%">
 <col width="4%">
+<col width="3%">
+<col width="10%">
 <col width="11%">
-<col width="12%">
-<col width="14%">
+<col width="13%">
+<col width="6%">
+<col width="4%">
 <col width="7%">
-<col width="5%">
+<col width="6%">
 <col width="8%">
 <col width="7%">
-<col width="9%">
-<col width="16%">
+<col width="12%">
 </colgroup>
 <thead><tr class="header">
 <th align="right">Plot</th>
@@ -192,6 +188,7 @@
 <th align="right">Protein</th>
 <th align="right">Weight</th>
 <th align="right">Moisture</th>
+<th align="right">rep_dup</th>
 <th align="left">sourcefile</th>
 </tr></thead>
 <tbody>
@@ -206,7 +203,8 @@
 <td align="right">9.2</td>
 <td align="right">3.067</td>
 <td align="right">15.4</td>
-<td align="left">HWEYT_Condon_NA</td>
+<td align="right">1</td>
+<td align="left">HWEYT_Condon</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
@@ -219,7 +217,8 @@
 <td align="right">12.5</td>
 <td align="right">2.240</td>
 <td align="right">14.0</td>
-<td align="left">HWEYT_Condon_NA</td>
+<td align="right">1</td>
+<td align="left">HWEYT_Condon</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
@@ -232,7 +231,8 @@
 <td align="right">9.5</td>
 <td align="right">2.762</td>
 <td align="right">15.1</td>
-<td align="left">HWEYT_Condon_NA</td>
+<td align="right">1</td>
+<td align="left">HWEYT_Condon</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
@@ -245,7 +245,8 @@
 <td align="right">8.9</td>
 <td align="right">3.222</td>
 <td align="right">16.0</td>
-<td align="left">HWEYT_Condon_NA</td>
+<td align="right">1</td>
+<td align="left">HWEYT_Condon</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
@@ -258,7 +259,8 @@
 <td align="right">11.2</td>
 <td align="right">2.489</td>
 <td align="right">15.1</td>
-<td align="left">HWEYT_Condon_NA</td>
+<td align="right">1</td>
+<td align="left">HWEYT_Condon</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
@@ -271,26 +273,27 @@
 <td align="right">10.4</td>
 <td align="right">2.138</td>
 <td align="right">14.0</td>
-<td align="left">HWEYT_Condon_NA</td>
+<td align="right">1</td>
+<td align="left">HWEYT_Condon</td>
 </tr>
 </tbody>
 </table>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data_raw2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
+<col width="5%">
+<col width="12%">
+<col width="14%">
+<col width="7%">
+<col width="5%">
+<col width="8%">
+<col width="7%">
+<col width="9%">
+<col width="6%">
 <col width="4%">
 <col width="11%">
-<col width="13%">
-<col width="6%">
-<col width="4%">
-<col width="7%">
-<col width="6%">
-<col width="8%">
-<col width="5%">
-<col width="3%">
-<col width="10%">
-<col width="14%">
+<col width="12%">
 </colgroup>
 <thead><tr class="header">
 <th align="right">Plot</th>
@@ -319,7 +322,7 @@
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="left">HRW20077</td>
-<td align="left">HWEYT_Dufur_NA</td>
+<td align="left">HWEYT_Dufur</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
@@ -333,7 +336,7 @@
 <td align="right">2</td>
 <td align="right">1</td>
 <td align="left">HRW20023</td>
-<td align="left">HWEYT_Dufur_NA</td>
+<td align="left">HWEYT_Dufur</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
@@ -347,7 +350,7 @@
 <td align="right">3</td>
 <td align="right">1</td>
 <td align="left">HRW20020</td>
-<td align="left">HWEYT_Dufur_NA</td>
+<td align="left">HWEYT_Dufur</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
@@ -361,7 +364,7 @@
 <td align="right">4</td>
 <td align="right">1</td>
 <td align="left">HRW20021</td>
-<td align="left">HWEYT_Dufur_NA</td>
+<td align="left">HWEYT_Dufur</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
@@ -375,7 +378,7 @@
 <td align="right">5</td>
 <td align="right">1</td>
 <td align="left">HRW20019</td>
-<td align="left">HWEYT_Dufur_NA</td>
+<td align="left">HWEYT_Dufur</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
@@ -389,7 +392,7 @@
 <td align="right">6</td>
 <td align="right">1</td>
 <td align="left">HRW20001</td>
-<td align="left">HWEYT_Dufur_NA</td>
+<td align="left">HWEYT_Dufur</td>
 </tr>
 </tbody>
 </table>
@@ -404,9 +407,17 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_raw3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/purrr/man/imap.html" class="external-link">imap</a></span><span class="op">(</span><span class="va">data_raw2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-    <span class="fu">rm.dup_col</span><span class="op">(</span><span class="va">x</span>, <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+    <span class="fu"><a href="../reference/rm_dup_col.html">rm.dup_col</a></span><span class="op">(</span><span class="va">x</span>, <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="op">~</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; [1] "HWEYT_Condon"</span>
+<span class="co">#&gt; This function name is being retained for backwards compatibility.</span>
+<span class="co">#&gt;           Please use rm_dup_col()</span>
+<span class="co">#&gt; [1] "Removing: rep_dup"</span>
+<span class="co">#&gt; [1] "HWEYT_Dufur"</span>
+<span class="co">#&gt; This function name is being retained for backwards compatibility.</span>
+<span class="co">#&gt;           Please use rm_dup_col()</span>
+<span class="co">#&gt; [1] "No columns removed"</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -416,12 +427,12 @@
 <h3 id="get-column-names">Get column names<a class="anchor" aria-label="anchor" href="#get-column-names"></a>
 </h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">colnames</span> <span class="op">&lt;-</span> <span class="fu">summarize.variables</span><span class="op">(</span><span class="va">data_raw3</span>, reg_ex <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">colnames</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/summarize.variables.html">summarize.variables</a></span><span class="op">(</span><span class="va">data_raw3</span>, reg_ex <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 <span class="va">colnames_summary</span> <span class="op">&lt;-</span> <span class="va">colnames</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">colname</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html" class="external-link">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/tidyselect/man/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">"; "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">colnames_summary</span>, <span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html" class="external-link">here</a></span><span class="op">(</span><span class="va">knitroutputfolder</span>, <span class="st">"colnames_summary.csv"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<span class="co">#write.csv(colnames_summary, here(knitroutputfolder, "colnames_summary.csv"), row.names = FALSE)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="rename-columns-using-auxiliary-files">Rename columns using auxiliary files<a class="anchor" aria-label="anchor" href="#rename-columns-using-auxiliary-files"></a>
@@ -445,7 +456,7 @@
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>controlled_vocab <span class="op">=</span> 
            <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">controlled_vocab</span> <span class="op">==</span> <span class="st">""</span>, <span class="va">colname</span>, <span class="va">controlled_vocab</span><span class="op">)</span><span class="op">)</span> 
 
-<span class="va">data_raw_rename1</span> <span class="op">&lt;-</span> <span class="fu">rename.col</span><span class="op">(</span><span class="va">data_raw3</span>, 
+<span class="va">data_raw_rename1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rename.col.html">rename.col</a></span><span class="op">(</span><span class="va">data_raw3</span>, 
                               rename_df <span class="op">=</span> <span class="va">colnames_curation</span>, 
                               rename_col <span class="op">=</span> <span class="va">controlled_vocab</span>, 
                               old_col <span class="op">=</span> <span class="va">colname</span>, 
@@ -490,7 +501,7 @@
 <span class="va">colname_valid_check</span> <span class="op">&lt;-</span> <span class="va">colname_valid</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">comment</span> <span class="op">==</span> <span class="st">"not present in codebook: trial_data"</span><span class="op">)</span>
 
-<span class="va">col_info</span> <span class="op">&lt;-</span> <span class="fu">find_col_info</span><span class="op">(</span><span class="va">data_all1</span>, 
+<span class="va">col_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/find_col_info.html">find_col_info</a></span><span class="op">(</span><span class="va">data_all1</span>, 
                        cols_check <span class="op">=</span> <span class="va">colname_valid_check</span><span class="op">$</span><span class="va">colname_data</span>, 
                        by_col <span class="op">=</span> <span class="va">sourcefile</span><span class="op">)</span></code></pre></div>
 </div>
