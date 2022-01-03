@@ -63,6 +63,10 @@ rename_col <- function(ls,
 
 #' A wrapper for rename_col to maintain backwards compatibility
 #'
+#' This wrapper required using enexpr() because of the bare variables
+#' being passed to rename_col.  See tests/understand_wrappers.R for more
+#' details
+#'
 #' @rdname rename_col
 #' @export
 rename.col <- function(ls,
