@@ -8,7 +8,7 @@ The function returns the proportion of the data.frames that contain the column n
 \usage{
 summarize_colnames(ls, col_vec)
 
-\method{summarize}{colnames}(ls, col_vec)
+summarize.colnames
 }
 \arguments{
 \item{ls}{A list of data.frames}

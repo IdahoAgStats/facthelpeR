@@ -24,4 +24,8 @@ the column with NAs is removed
 #' test_dup <- duplicated(as.list(df)) This method detects duplicates
 but does not take into account NAs
 }
+\seealso{
+Other clean columns functions: 
+\code{\link{rename_col}()}
+}
 \concept{clean columns functions}

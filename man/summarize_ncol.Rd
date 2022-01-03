@@ -9,7 +9,7 @@ This function detects columns with similar names within a dataset}
 \usage{
 summarize_ncol(ls, col_vec)
 
-\method{summarize}{ncol}(ls, col_vec)
+summarize.ncol
 }
 \arguments{
 \item{ls}{A list of data.frames}

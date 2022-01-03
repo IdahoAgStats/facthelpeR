@@ -64,6 +64,9 @@
     <loc>/reference/rename.intdouble.html</loc>
   </url>
   <url>
+    <loc>/reference/rename_col.html</loc>
+  </url>
+  <url>
     <loc>/reference/rm.dup_col.html</loc>
   </url>
   <url>
@@ -73,6 +76,9 @@
     <loc>/reference/select.colsfromlist.html</loc>
   </url>
   <url>
+    <loc>/reference/select_colsfromlist.html</loc>
+  </url>
+  <url>
     <loc>/reference/summarize.colnames.html</loc>
   </url>
   <url>
@@ -80,6 +86,15 @@
   </url>
   <url>
     <loc>/reference/summarize.variables.html</loc>
+  </url>
+  <url>
+    <loc>/reference/summarize_colnames.html</loc>
+  </url>
+  <url>
+    <loc>/reference/summarize_ncol.html</loc>
+  </url>
+  <url>
+    <loc>/reference/summarize_variables.html</loc>
   </url>
   <url>
     <loc>/reference/test.col_id_elements.html</loc>

@@ -7,7 +7,7 @@
 \usage{
 summarize_variables(data_list, reg_ex, reg_ex_exclude = NULL)
 
-\method{summarize}{variables}(data_list, reg_ex, reg_ex_exclude = NULL)
+summarize.variables
 }
 \arguments{
 \item{data_list}{A list of data.frames}

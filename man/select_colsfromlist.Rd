@@ -7,7 +7,7 @@
 \usage{
 select_colsfromlist(data_list, reg_ex, multnames_only = FALSE)
 
-\method{select}{colsfromlist}(data_list, reg_ex, multnames_only = FALSE)
+select.colsfromlist
 }
 \arguments{
 \item{data_list}{A list with each element containing a data.frame}
