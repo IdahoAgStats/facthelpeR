@@ -116,7 +116,6 @@ test.col_id_elements <- function(df, colname){
 
 #' A wrapper for rm_dup_col to maintain backwards compatibility
 #'
-#' @inheritParams rm_dup_col
 #' @rdname rm_dup_col
 #' @export
 rm.dup_col <- function(df, concat_names = TRUE){
