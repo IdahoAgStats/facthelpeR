@@ -193,6 +193,7 @@ summarize_colnames <- function(ls, col_vec){
 #' A wrapper for summarize_variables to maintain backwards compatibility
 #'
 #' @rdname summarize_variables
+#' @usage summarize.variables
 #' @export summarize.variables
 summarize.variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){
   message("This function name is being retained for backwards compatibility.
@@ -207,6 +208,7 @@ summarize.variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){
 #' A wrapper for select_colsfromlist to maintain backwards compatibility
 #'
 #' @rdname select_colsfromlist
+#' @usage select.colsfromlist
 #' @export select.colsfromlist
 select.colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
   message("This function name is being retained for backwards compatibility.
@@ -221,6 +223,7 @@ select.colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
 #' A wrapper for summarize_ncol to maintain backwards compatibility
 #'
 #' @rdname summarize_ncol
+#' @usage summarize.ncol
 #' @export summarize.ncol
 summarize.ncol <- function(ls, col_vec){
   message("This function name is being retained for backwards compatibility.
@@ -232,6 +235,7 @@ summarize.ncol <- function(ls, col_vec){
 #' A wrapper for summarize_colnames to maintain backwards compatibility
 #'
 #' @rdname summarize_colnames
+#' @usage summarize.colnames
 #' @export summarize.colnames
 summarize.colnames <- function(ls, col_vec){
   message("This function name is being retained for backwards compatibility.

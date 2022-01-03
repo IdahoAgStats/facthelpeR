@@ -68,7 +68,8 @@ rename_col <- function(ls,
 #' details
 #'
 #' @rdname rename_col
-#' @export
+#' @usage rename.col
+#' @export rename.col
 rename.col <- function(ls,
                        rename_df,
                        rename_col,

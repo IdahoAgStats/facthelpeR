@@ -21,3 +21,18 @@ list_sheetnames <- function(data_folder, files, reg_ex = NULL){
   }
   return(sheet_info)
 }
+
+#' A wrapper for list_sheetnames to maintain backwards compatibility
+#'
+#' @rdname list_sheetnames
+#' @export
+list.sheetnames <- function(data_folder, files, reg_ex = NULL){
+  message("This function name is being retained for backwards compatibility.
+          Please use list_sheetnames()")
+  list_sheetnames(data_folder = data_folder,
+                  files = files,
+                  reg_ex = NULL)
+
+}
+
+
