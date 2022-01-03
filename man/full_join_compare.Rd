@@ -17,4 +17,4 @@ Full join data.frames to compare columns
 add a suffix before the merge to track where the
 column originated
 }
-\concept{df join functions}
+\concept{join functions}
