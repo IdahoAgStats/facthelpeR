@@ -39,6 +39,7 @@ read_sheets <- function(file_name, data_folder, skip_df){
 #' @importFrom stats complete.cases
 #' @param complete_cases A logical. The default TRUE will remove empty rows
 #' @family readin functions
+#' @export
 read_excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
                             complete_cases = TRUE){
 
