@@ -1,16 +1,26 @@
-#' Read multiple sheets listed in a data.frame
-#' created by list.sheetnames
+#' Read multiple files (csv or excel) and/or multiple sheets (within an excel file)
+#' and handle headers that span multiple rows.
+#'
+#' Read in multiple files and or multiple sheets and handle headers that span multiple rows.
+#' This function must be provided a data.frame with file information.
+#' The data.frame can be initalized with the function `list_sheetnames()`
+#'
 #' @param data_folder A string denoting the folder that contains the
 #' files to be read in
-#' @param df A data.frame created by the function list.sheetnames
-#' The df can be modified to include a column "header_end," which denotes
-#' the number of the row corresponding to the last row of the header.
+#' @param df A data.frame with the column "filename", which can be
+#' inialized by the function `list_sheetnames()`
+#' Required data.frame columns:
+#'   - filename: name of the .xlsx or .csv
+#' Optional columns:
+#'   - sheets: name of the sheet (required for excel files with multiple sheets)
+#'   - list_names: names to label the element in the list.  If list_names is not
+#'  provided, the function will label the list elements using the
+#'  concatenation of the file and sheet name
+#'   - header_start: the row number corresponding to the start of the header
+#'   - header_end: the row number corresponding to the last row of the header
 #' header_end = 1 corresponds to the header being in only the first row and
-#' corresponds to skipping 0 rows.
-#' If header_end is not provided, the default
-#' is set to 1, which will skip 0 rows.  Similarly, the df can also include a column of "list_names,"
-#' which denote the name of the list object.  If list_names is not provided,
-#' the default is the concatenation of the file and sheet name
+#' corresponds to skipping 0 rows.  If header_end is not provided, the default
+#' is set to 1, which will skip 0 rows.
 #' Note: If header_end is NA, the file/sheet will be removed (not read in)
 #' @inheritParams read_excelsheet
 #' @import readr
@@ -29,13 +39,14 @@ read_multsheets <- function(data_folder,
 
   if (!"header_end" %in% names(df)){
     df <- df %>% mutate(header_end = 1)
-    message("Appending header_end")
+    message("Adding header_end")
   }
 
   if (!"header_start" %in% names(df)){
     df <- df %>% mutate(header_start = NA)
   }
 
+  # Create names for list elements, if not provided
   if (!"list_names" %in% names(df)){
     if("sheets" %in% names(df)){
       df <- df %>% mutate(list_names = paste(filename, sheets))
@@ -44,6 +55,7 @@ read_multsheets <- function(data_folder,
     }
   }
 
+  # Remove files that shouldn't be read in
   df <- df %>% filter(!is.na(header_end))
 
   dat_ls <- df %>%
@@ -63,6 +75,7 @@ read_multsheets <- function(data_folder,
                                guess_max = guess_max,
                                complete_cases = complete_cases)
 
+        # Replace the header if it is multiple lines
         if (!is.na(current$header_start) & (current$header_start < current$header_end)){
           header <- read_excelheader(current$sheets,
                                      path,
