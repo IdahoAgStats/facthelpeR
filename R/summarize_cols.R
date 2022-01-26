@@ -141,7 +141,7 @@ summarize_ncol <- function(ls, col_vec){
 
   col_vars_n1 <- map(col_vec, function(x){
     #print(x)
-    cols_summary <- summarize.variables(ls, x)
+    cols_summary <- summarize_variables(ls, x)
 
     if (nrow(cols_summary) == 0){
       warning(paste("There are no instances of variable:", x))
@@ -173,7 +173,7 @@ summarize_colnames <- function(ls, col_vec){
 
   col_var_name1 <- map(col_vec, function(x){
     #print(x)
-    cols_summary <- summarize.variables(ls, x)
+    cols_summary <- summarize_variables(ls, x)
 
     if (nrow(cols_summary) == 0){
       warning(paste("There are no instances of variable:", x))
