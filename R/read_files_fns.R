@@ -57,9 +57,10 @@ read_excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
   sheet_df
 }
 
-#' Read excel headers that span over multiple rows
+
+#' Read headers that span over multiple rows
 #'
-#' Note: this function was previously read.excelheader()
+#' Note: this function was previously read.excelheader()/read_excelheader()
 #'
 #' @param sheet_name A string denoting the sheetname
 #' @param path A path to the file that contains the sheet
@@ -73,16 +74,25 @@ read_excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
 #' @import readxl
 #' @import tidyr
 #' @family readin functions
-read_excelheader <- function(sheet_name, path, header_start, header_end, unique_names){
+read_header <- function(sheet_name, path, header_start, header_end, unique_names){
   # Read in full dataset and slice the header
   # If only read in the header, the columns without header names may be dropped
-  header1 = read_excel(sheet_name,
+  if (str_detect(path,".xls")){
+    header1 = read_excel(sheet_name,
                        path = path,
                        col_names = FALSE,
-                       na = c("NA", ".", "none", " ")) %>%
+                       na = c("NA", ".", "none", " "))
+
+  } else if (str_detect(path,".csv")){
+    header1 <-  read_csv(file = path,
+                         na = c("NA", ".", "none", " "),
+                         col_names = FALSE)
+  }
+
+  header1b <- header1 %>%
     slice(header_start:header_end)
 
-  header2 <- data.frame(t(header1))
+  header2 <- data.frame(t(header1b))
 
   header3 <- header2 %>%
     mutate(across(everything(), ~as.character(.x))) %>%
@@ -99,4 +109,5 @@ read_excelheader <- function(sheet_name, path, header_start, header_end, unique_
 
   return(header3)
 }
+
 

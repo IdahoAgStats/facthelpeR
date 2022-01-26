@@ -1,7 +1,8 @@
 #' Read multiple files (csv or excel) and/or multiple sheets (within an excel file)
 #' and handle headers that span multiple rows.
 #'
-#' Read in multiple files and or multiple sheets and handle headers that span multiple rows.
+#' Read in multiple files and or multiple sheets and handle headers
+#' that span multiple rows (using `read_header()`)
 #' This function must be provided a data.frame with file information.
 #' The data.frame can be initalized with the function `list_sheetnames()`
 #'
@@ -24,8 +25,8 @@
 #' Note: If header_end is NA, the file/sheet will be removed (not read in)
 #' @inheritParams read_excelsheet
 #' @import readr
-#' @export
 #' @family readin functions
+#' @export
 read_multsheets <- function(data_folder,
                             df,
                             na = c("NA"),
@@ -75,22 +76,24 @@ read_multsheets <- function(data_folder,
                                guess_max = guess_max,
                                complete_cases = complete_cases)
 
-        # Replace the header if it is multiple lines
-        if (!is.na(current$header_start) & (current$header_start < current$header_end)){
-          header <- read_excelheader(current$sheets,
-                                     path,
-                                     current$header_start,
-                                     current$header_end, unique_names = TRUE)
-          length_newheader <- nrow(header)
-          names(dat)[1:length_newheader] <- header$colnames
 
-        }
       } else if (str_detect(current$filename,".csv")){
         print("Using read_csv")
         dat <- read_csv(file = path,
                         skip = current$header_end-1,
                         na = na,
                         col_names = col_names)
+
+      }
+
+      # Replace the header if it is multiple lines
+      if (!is.na(current$header_start) & (current$header_start < current$header_end)){
+        header <- read_header(current$sheets,
+                              path,
+                              current$header_start,
+                              current$header_end, unique_names = TRUE)
+        length_newheader <- nrow(header)
+        names(dat)[1:length_newheader] <- header$colnames
 
       }
 

@@ -34,9 +34,18 @@ test_that("read_multsheets reads in the correct header for .csv files", {
 
 ##
 test_that("read_multsheets skips the correct rows and reads in the data as expected", {
-  #files <- list.files(data_folder, recursive = TRUE, pattern = ".csv")
+  sheets <- list_sheetnames(data_folder, "test_skiprows.xls") %>%
+    dplyr::mutate(header_end = 4) %>% dplyr::mutate(header_start = NA)
 
-  # the current functions don't work for .csv
+  df_list <- read_multsheets(data_folder, sheets, col_names = TRUE)
+  ans <- tibble(name1 = c(1,2,3), name2 = c("a", "b", "c"), name3 = c("a", "b", "c"))
+
+  expect_equal(df_list[[1]], ans)
+
+})
+
+test_that("read_multsheets skips the correct rows and reads in the data as expected
+          for .csv", {
   sheets <- list_sheetnames(data_folder, "test_skiprows.xls") %>%
     dplyr::mutate(header_end = 4) %>% dplyr::mutate(header_start = NA)
 
@@ -60,14 +69,13 @@ test_that("read_multsheets reads in multiple header rows correctly", {
 
 })
 
-test_that("read_multsheets reads in multiple header rows correctly", {
-  sheets <- list_sheetnames(data_folder, "test_header.xlsx") %>%
-    dplyr::mutate(header_start = 1) %>%
-    dplyr::mutate(header_end = 2)
+test_that("read_multsheets reads in multiple header rows correctly for .csv", {
+  file_df <- data.frame(filename = "test_skiprows.csv", header_start = 2, header_end = 4)
 
-  df_list <- read_multsheets(data_folder, sheets, col_names = TRUE)
-  ans <- tibble(col = 1:3, col...2 = 1:3, col_3 = 1:3, ...4 = 1:3)
-  expect_equal(df_list[[1]], ans)
+  df_list <- read_multsheets(data_folder, file_df, col_names = TRUE)
+  ans <- tibble(name1 = c(1,2,3), name2 = c("a", "b", "c"), name3 = c("a", "b", "c"))
+  names(ans) <- paste0("col_name_name", 1:3)
+  expect_equal(df_list[[1]], ans, ignore_attr = TRUE)
 
 })
 
