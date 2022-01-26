@@ -18,11 +18,10 @@ knitr::opts_chunk$set(
 )
 ```
 ## Introduction
-`facthelpeR` is a set of functions that are used to read in and do a first
-pass at cleaning up data.  This vignette will walk through the steps covered 
-by `facthelpeR`
+**facthelpeR** is a set of functions that are used to read in and do a first
+pass at cleaning up data.  
 
-Load `facthelpeR`
+Load **facthelpeR**
 ```{r setup, message = FALSE}
 library(facthelpeR)
 library(here)
@@ -46,21 +45,33 @@ for reproducibility.
 
 ## Read in raw data
 ### Generate a list of all of the files and sheets
-If the header is not in the first row (or is spans multiple rows), 
-write.csv(sheet_info...) and manually fill in the 
-number of rows to skip in each sheet.  See read.multsheets() for more
-information.
+If the header is not in the first row (or spans multiple rows), 
+`write.csv(sheet_info, ...)` and manually fill in the 
+number of rows to skip in each sheet.  This data.frame will be read into 
+`read_multsheets()`
 ```{r}
-files <- list.files(data_folder, recursive = TRUE, pattern = ".csv")
+files_csv <- list.files(data_folder, recursive = TRUE, pattern = ".csv")
 
-sheet_info <- data.frame(filename = files) %>% 
+sheet_info_csv <- data.frame(filename = files_csv) %>% 
   filter(!str_detect(filename, "curation_files")) %>%
   mutate(list_names = basename(filename)) %>%
   mutate(list_names = str_remove(list_names, ".csv")) 
+
+knitr::kable(sheet_info_csv)
+```
+#### How to handle sheets in .xls files
+This section is just to demonstrate how to handle excel files with multiple sheets.
+The data won't be processed in the rest of this vignette.
+```{r}
+files_xls <- list.files(data_folder, recursive = TRUE, pattern = ".xls")
+
+sheet_info_xls <- list_sheetnames(data_folder, files_xls) 
+
+knitr::kable(sheet_info_xls)
 ```
 ### Use read.multsheets()
 ```{r}
-data_raw1 <- read.multsheets(data_folder, sheet_info, na = c("NA"), col_names = TRUE)
+data_raw1 <- read.multsheets(data_folder, sheet_info_csv, na = c("NA"), col_names = TRUE)
 data_raw2 <- imap(data_raw1, function(x, y){ x %>% mutate(sourcefile = y)})
 
 
@@ -70,8 +81,8 @@ knitr::kable(head(data_raw2[[2]]))
  #    file = here(knitroutput_folder, "data_raw2.RData"))
 ```
 ### Remove duplicate columns
-Use rm.dup_col() because it can detect and remove duplicates when:
-- column names are not exact, column contents are
+Use `facthelpeR::rm_dup_col()` because it can detect and remove duplicates when:
+- column names are not exact, but column contents are
 - if the only difference between two column contents are that one has some NAs,
 then that column is removed and the other is retained
 ```{r}
@@ -92,6 +103,8 @@ colnames_summary <- colnames %>%
   summarize(across(everything(), ~ paste(na.omit(unique(.x)), collapse = "; ")))
 
 write.csv(colnames_summary, here(knitroutput_folder, "colnames_summary.csv"), row.names = FALSE)
+
+knitr::kable(colnames_summary)
 ```
 ### Rename columns using auxiliary files
 First, understand what each column means (description and units) by:
@@ -120,10 +133,16 @@ to controlled vocabulary using the correct formatting, which is described in the
 ```{r}
 colnames_curation <- 
   read.csv(here(auxiliary_files, "colnames_summary_aux.csv")) %>%
+  # If a column name still needs to be checked/confirmed, leave the controlled_vocab 
+  # column blank in the "colnames_summary_aux.csv" file.  
+  # Before the renaming step, just set the unknowns to the 
+  # original name.
   mutate(controlled_vocab = 
            ifelse(controlled_vocab == "", colname, controlled_vocab)) 
 
-data_raw_rename1 <- rename.col(data_raw3, 
+knitr::kable(colnames_curation)
+
+data_raw_rename1 <- rename_col(data_raw3, 
                               rename_df = colnames_curation, 
                               rename_col = controlled_vocab, 
                               old_col = colname, 
@@ -135,13 +154,42 @@ knitr::kable(head(data_raw_rename1[[2]]))
 save(data_raw_rename1,
      file = here(knitroutput_folder, "data_raw_rename1.RData"))
 ```
+### Some functions that may help explore the columns within the list of data
+There are often instances where column names are not used consistently between 
+files or there are similar column names within one dataset (test vs. testwt).
+The following functions may help to summarize and explore the data.
+
+- See `summarize_variables()` used above.
+- `summarize_ncol()` and `summarize_colnames` summarizes the information 
+collected from `summarize_variables()` 
+
+List the number of columns that match a given regex per dataset.
+```{r}
+cols_summary <- summarize_ncol(data_raw_rename1, c("entry", "length"))
+knitr::kable(cols_summary)
+```
+
+List the proportion of files that contain a given 
+```{r}
+cols_prop <- summarize_colnames(data_raw_rename1, c("entry", "length"))
+knitr::kable(cols_prop)
+```
+
+Pull all the columns that match a given regex.  This is useful for checking to 
+see whether column names have been used consistently within and across datasets.
+```{r}
+cols <- select_colsfromlist(data_raw_rename1,  c("entry", "length"))
+knitr::kable(cols)
+```
+
 ## Bind all data.frames
 ```{r}
 data_all1 <- bind_rows(data_raw_rename1)
 save(data_all1,
      file = here(knitroutput_folder,"data_all1.RData"))
 ```
+
 ## Curate column contents
 
-## See `factcuratoR` package for validating columns and column contents
+See the [**factcuratoR**](https://idahoagstats.github.io/factcuratoR/) package for validating columns and column contents
 

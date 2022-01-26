@@ -3,8 +3,8 @@
 \name{read_multsheets}
 \alias{read_multsheets}
 \alias{read.multsheets}
-\title{Read multiple sheets listed in a data.frame
-created by list.sheetnames}
+\title{Read multiple files (csv or excel) and/or multiple sheets (within an excel file)
+and handle headers that span multiple rows.}
 \usage{
 read_multsheets(
   data_folder,
@@ -28,16 +28,23 @@ read.multsheets(
 \item{data_folder}{A string denoting the folder that contains the
 files to be read in}
 
-\item{df}{A data.frame created by the function list.sheetnames
-The df can be modified to include a column "header_end," which denotes
-the number of the row corresponding to the last row of the header.
+\item{df}{A data.frame with the column "filename", which can be
+inialized by the function \code{list_sheetnames()}
+Required data.frame columns:
+\itemize{
+\item filename: name of the .xlsx or .csv
+Optional columns:
+\item sheets: name of the sheet (required for excel files with multiple sheets)
+\item list_names: names to label the element in the list.  If list_names is not
+provided, the function will label the list elements using the
+concatenation of the file and sheet name
+\item header_start: the row number corresponding to the start of the header
+\item header_end: the row number corresponding to the last row of the header
 header_end = 1 corresponds to the header being in only the first row and
-corresponds to skipping 0 rows.
-If header_end is not provided, the default
-is set to 1, which will skip 0 rows.  Similarly, the df can also include a column of "list_names,"
-which denote the name of the list object.  If list_names is not provided,
-the default is the concatenation of the file and sheet name
-Note: If header_end is NA, the file/sheet will be removed (not read in)}
+corresponds to skipping 0 rows.  If header_end is not provided, the default
+is set to 1, which will skip 0 rows.
+Note: If header_end is NA, the file/sheet will be removed (not read in)
+}}
 
 \item{na}{Character vector of strings to interpret as missing values. By
 default, readxl treats blank cells as missing data.}
@@ -54,16 +61,16 @@ types.}
 \item{complete_cases}{A logical. The default TRUE will remove empty rows}
 }
 \description{
-Read multiple sheets listed in a data.frame
-created by list.sheetnames
-
-A wrapper for read_multsheets to maintain backwards compatibility
+Read in multiple files and or multiple sheets and handle headers
+that span multiple rows (using \code{read_header()})
+This function must be provided a data.frame with file information.
+The data.frame can be initalized with the function \code{list_sheetnames()}
 }
 \seealso{
 Other readin functions: 
 \code{\link{list_sheetnames}()},
-\code{\link{read_excelheader}()},
 \code{\link{read_excelsheet}()},
+\code{\link{read_header}()},
 \code{\link{read_sheets}()}
 }
 \concept{readin functions}

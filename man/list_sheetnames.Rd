@@ -21,8 +21,8 @@ Note: this function was previously list.sheetnames()
 }
 \seealso{
 Other readin functions: 
-\code{\link{read_excelheader}()},
 \code{\link{read_excelsheet}()},
+\code{\link{read_header}()},
 \code{\link{read_multsheets}()},
 \code{\link{read_sheets}()}
 }

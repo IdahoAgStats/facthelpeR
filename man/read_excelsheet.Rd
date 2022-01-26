@@ -58,7 +58,7 @@ Note: this function was previously read.excelsheet()
 \seealso{
 Other readin functions: 
 \code{\link{list_sheetnames}()},
-\code{\link{read_excelheader}()},
+\code{\link{read_header}()},
 \code{\link{read_multsheets}()},
 \code{\link{read_sheets}()}
 }

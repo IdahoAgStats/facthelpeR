@@ -71,7 +71,7 @@
       <h1 data-toc-skip>Introduction to facthelpeR</h1>
                         <h4 data-toc-skip class="author">Jacqueline Tay</h4>
             
-            <h4 data-toc-skip class="date">2022-01-03</h4>
+            <h4 data-toc-skip class="date">2022-01-26</h4>
       
       
       <div class="hidden name"><code>intro_facthelper.Rmd</code></div>
@@ -83,8 +83,8 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p><code>facthelpeR</code> is a set of functions that are used to read in and do a first pass at cleaning up data. This vignette will walk through the steps covered by <code>facthelpeR</code></p>
-<p>Load <code>facthelpeR</code></p>
+<p><strong>facthelpeR</strong> is a set of functions that are used to read in and do a first pass at cleaning up data.</p>
+<p>Load <strong>facthelpeR</strong></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">facthelpeR</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/" class="external-link">here</a></span><span class="op">)</span></code></pre></div>
@@ -110,23 +110,68 @@
 <div class="section level3">
 <h3 id="generate-a-list-of-all-of-the-files-and-sheets">Generate a list of all of the files and sheets<a class="anchor" aria-label="anchor" href="#generate-a-list-of-all-of-the-files-and-sheets"></a>
 </h3>
-<p>If the header is not in the first row (or is spans multiple rows), write.csv(sheet_info…) and manually fill in the number of rows to skip in each sheet. See read.multsheets() for more information.</p>
+<p>If the header is not in the first row (or spans multiple rows), <code>write.csv(sheet_info, ...)</code> and manually fill in the number of rows to skip in each sheet. This data.frame will be read into <code><a href="../reference/read_multsheets.html">read_multsheets()</a></code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">data_folder</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, pattern <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">files_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">data_folder</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, pattern <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span>
 
-<span class="va">sheet_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="va">files</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+<span class="va">sheet_info_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="va">files_csv</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">filename</span>, <span class="st">"curation_files"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>list_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>list_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">list_names</span>, <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>list_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/stringr/man/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">list_names</span>, <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span> 
+
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">sheet_info_csv</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">filename</th>
+<th align="left">list_names</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">HWEYT_Condon.csv</td>
+<td align="left">HWEYT_Condon</td>
+</tr>
+<tr class="even">
+<td align="left">HWEYT_Dufur.csv</td>
+<td align="left">HWEYT_Dufur</td>
+</tr>
+</tbody>
+</table>
+<div class="section level4">
+<h4 id="how-to-handle-sheets-in--xls-files">How to handle sheets in .xls files<a class="anchor" aria-label="anchor" href="#how-to-handle-sheets-in--xls-files"></a>
+</h4>
+<p>This section is just to demonstrate how to handle excel files with multiple sheets. The data won’t be processed in the rest of this vignette.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">files_xls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">data_folder</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, pattern <span class="op">=</span> <span class="st">".xls"</span><span class="op">)</span>
+
+<span class="va">sheet_info_xls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_sheetnames.html">list_sheetnames</a></span><span class="op">(</span><span class="va">data_folder</span>, <span class="va">files_xls</span><span class="op">)</span> 
+
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">sheet_info_xls</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">filename</th>
+<th align="left">sheets</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">HWEYT_Dufur_copy.xlsx</td>
+<td align="left">HWEYT_Dufur</td>
+</tr>
+<tr class="even">
+<td align="left">HWEYT_Dufur_copy.xlsx</td>
+<td align="left">extra_sheet</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level3">
 <h3 id="use-read-multsheets">Use read.multsheets()<a class="anchor" aria-label="anchor" href="#use-read-multsheets"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_raw1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_multsheets.html">read.multsheets</a></span><span class="op">(</span><span class="va">data_folder</span>, <span class="va">sheet_info</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span><span class="op">)</span>, col_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data_raw1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_multsheets.html">read.multsheets</a></span><span class="op">(</span><span class="va">data_folder</span>, <span class="va">sheet_info_csv</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span><span class="op">)</span>, col_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; This function name is being retained for backwards compatibility.</span>
 <span class="co">#&gt;           Please use read_multsheets()</span>
-<span class="co">#&gt; Appending header_end</span>
+<span class="co">#&gt; Adding header_end</span>
 <span class="co">#&gt; [1] "Using read_csv"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; <span style="color: #00BBBB;">──</span><span> </span><span style="font-weight: bold;">Column specification</span><span> </span><span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -279,7 +324,7 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data_raw2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -397,15 +442,15 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#save(data_raw2,</span>
  <span class="co">#    file = here(knitroutput_folder, "data_raw2.RData"))</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="remove-duplicate-columns">Remove duplicate columns<a class="anchor" aria-label="anchor" href="#remove-duplicate-columns"></a>
 </h3>
-<p>Use rm.dup_col() because it can detect and remove duplicates when: - column names are not exact, column contents are - if the only difference between two column contents are that one has some NAs, then that column is removed and the other is retained</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>Use <code><a href="../reference/rm_dup_col.html">facthelpeR::rm_dup_col()</a></code> because it can detect and remove duplicates when: - column names are not exact, but column contents are - if the only difference between two column contents are that one has some NAs, then that column is removed and the other is retained</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_raw3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/purrr/man/imap.html" class="external-link">imap</a></span><span class="op">(</span><span class="va">data_raw2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
     <span class="fu"><a href="../reference/rm_dup_col.html">rm_dup_col</a></span><span class="op">(</span><span class="va">x</span>, <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -423,13 +468,117 @@
 <div class="section level3">
 <h3 id="get-column-names">Get column names<a class="anchor" aria-label="anchor" href="#get-column-names"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">colnames</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/summarize_variables.html">summarize_variables</a></span><span class="op">(</span><span class="va">data_raw3</span>, reg_ex <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 <span class="va">colnames_summary</span> <span class="op">&lt;-</span> <span class="va">colnames</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">colname</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html" class="external-link">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/tidyselect/man/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">"; "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">colnames_summary</span>, <span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html" class="external-link">here</a></span><span class="op">(</span><span class="va">knitroutput_folder</span>, <span class="st">"colnames_summary.csv"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">colnames_summary</span>, <span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html" class="external-link">here</a></span><span class="op">(</span><span class="va">knitroutput_folder</span>, <span class="st">"colnames_summary.csv"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">colnames_summary</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="16%">
+<col width="11%">
+<col width="30%">
+<col width="30%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">colname</th>
+<th align="left">type</th>
+<th align="left">example</th>
+<th align="left">file_sheet</th>
+<th align="left">instance</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Entry</td>
+<td align="left">numeric</td>
+<td align="left">1</td>
+<td align="left">HWEYT_Dufur</td>
+<td align="left">9</td>
+</tr>
+<tr class="even">
+<td align="left">Height</td>
+<td align="left">numeric</td>
+<td align="left">38; 36</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">6; 4</td>
+</tr>
+<tr class="odd">
+<td align="left">Length_Feet</td>
+<td align="left">numeric</td>
+<td align="left">15</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">4; 2</td>
+</tr>
+<tr class="even">
+<td align="left">Length_Inches</td>
+<td align="left">numeric</td>
+<td align="left">9; 0</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">5; 3</td>
+</tr>
+<tr class="odd">
+<td align="left">Moisture</td>
+<td align="left">numeric</td>
+<td align="left">15.4; 14.3</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">10; 8</td>
+</tr>
+<tr class="even">
+<td align="left">Plot</td>
+<td align="left">numeric</td>
+<td align="left">1</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Program ID</td>
+<td align="left">character</td>
+<td align="left">HRW20077</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">3; 11</td>
+</tr>
+<tr class="even">
+<td align="left">Protein</td>
+<td align="left">numeric</td>
+<td align="left">9.2; 10.4</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">8; 6</td>
+</tr>
+<tr class="odd">
+<td align="left">Rep</td>
+<td align="left">numeric</td>
+<td align="left">1</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">2; 10</td>
+</tr>
+<tr class="even">
+<td align="left">sourcefile</td>
+<td align="left">character</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">11; 12</td>
+</tr>
+<tr class="odd">
+<td align="left">Test</td>
+<td align="left">numeric</td>
+<td align="left">61.1; 62.7</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">7; 5</td>
+</tr>
+<tr class="even">
+<td align="left">Weight</td>
+<td align="left">numeric</td>
+<td align="left">3.067; 3.081</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">9; 7</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level3">
 <h3 id="rename-columns-using-auxiliary-files">Rename columns using auxiliary files<a class="anchor" aria-label="anchor" href="#rename-columns-using-auxiliary-files"></a>
@@ -447,19 +596,140 @@
 <li><p>decide whether we need to keep the variable at all (can fill in auxiliary file with “rm_col” in the controlled_vocab column and rename.col() will remove them if rm_col argument = TRUE)</p></li>
 <li><p>decide whether a new controlled vocabulary should be added. If so, add to controlled vocabulary using the correct formatting, which is described in the README (I usually get Julia’s opinion on this, especially before adding new vocabularies)</p></li>
 </ol>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">colnames_curation</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html" class="external-link">here</a></span><span class="op">(</span><span class="va">auxiliary_files</span>, <span class="st">"colnames_summary_aux.csv"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="co"># If a column name still needs to be checked/confirmed, leave the controlled_vocab </span>
+  <span class="co"># column blank in the "colnames_summary_aux.csv" file.  </span>
+  <span class="co"># Before the renaming step, just set the unknowns to the </span>
+  <span class="co"># original name.</span>
   <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>controlled_vocab <span class="op">=</span> 
            <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">controlled_vocab</span> <span class="op">==</span> <span class="st">""</span>, <span class="va">colname</span>, <span class="va">controlled_vocab</span><span class="op">)</span><span class="op">)</span> 
 
-<span class="va">data_raw_rename1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rename_col.html">rename.col</a></span><span class="op">(</span><span class="va">data_raw3</span>, 
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">colnames_curation</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="16%">
+<col width="13%">
+<col width="9%">
+<col width="25%">
+<col width="25%">
+<col width="8%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">controlled_vocab</th>
+<th align="left">colname</th>
+<th align="left">type</th>
+<th align="left">example</th>
+<th align="left">file_sheet</th>
+<th align="left">instance</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">entry</td>
+<td align="left">Entry</td>
+<td align="left">numeric</td>
+<td align="left">1</td>
+<td align="left">HWEYT_Dufur</td>
+<td align="left">9</td>
+</tr>
+<tr class="even">
+<td align="left">height</td>
+<td align="left">Height</td>
+<td align="left">numeric</td>
+<td align="left">38; 36</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">6; 4</td>
+</tr>
+<tr class="odd">
+<td align="left">Length_Feet</td>
+<td align="left">Length_Feet</td>
+<td align="left">numeric</td>
+<td align="left">15</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">4; 2</td>
+</tr>
+<tr class="even">
+<td align="left">Length_Inches</td>
+<td align="left">Length_Inches</td>
+<td align="left">numeric</td>
+<td align="left">9; 0</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">5; 3</td>
+</tr>
+<tr class="odd">
+<td align="left">moisture</td>
+<td align="left">Moisture</td>
+<td align="left">numeric</td>
+<td align="left">15.4; 14.3</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">10; 8</td>
+</tr>
+<tr class="even">
+<td align="left">plot</td>
+<td align="left">Plot</td>
+<td align="left">numeric</td>
+<td align="left">1</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Program ID</td>
+<td align="left">Program ID</td>
+<td align="left">character</td>
+<td align="left">HRW20077</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">3; 11</td>
+</tr>
+<tr class="even">
+<td align="left">Protein</td>
+<td align="left">Protein</td>
+<td align="left">numeric</td>
+<td align="left">9.2; 10.4</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">8; 6</td>
+</tr>
+<tr class="odd">
+<td align="left">rep</td>
+<td align="left">Rep</td>
+<td align="left">numeric</td>
+<td align="left">1</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">2; 10</td>
+</tr>
+<tr class="even">
+<td align="left">sourcefile</td>
+<td align="left">sourcefile</td>
+<td align="left">character</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">11; 12</td>
+</tr>
+<tr class="odd">
+<td align="left">test</td>
+<td align="left">Test</td>
+<td align="left">numeric</td>
+<td align="left">61.1; 62.7</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">7; 5</td>
+</tr>
+<tr class="even">
+<td align="left">Weight</td>
+<td align="left">Weight</td>
+<td align="left">numeric</td>
+<td align="left">3.067; 3.081</td>
+<td align="left">HWEYT_Condon; HWEYT_Dufur</td>
+<td align="left">9; 7</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">data_raw_rename1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rename_col.html">rename_col</a></span><span class="op">(</span><span class="va">data_raw3</span>, 
                               rename_df <span class="op">=</span> <span class="va">colnames_curation</span>, 
                               rename_col <span class="op">=</span> <span class="va">controlled_vocab</span>, 
                               old_col <span class="op">=</span> <span class="va">colname</span>, 
                               rm_col <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; This function name is being retained for backwards compatibility.</span>
-<span class="co">#&gt;           Please use rename_col()</span>
 <span class="co">#&gt; [1] "HWEYT_Condon"</span>
 <span class="co">#&gt; Renaming all data.frames with the same rename values</span>
 <span class="co">#&gt; Columns renamed 'rm_col' will be removed</span>
@@ -576,7 +846,7 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data_raw_rename1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -694,16 +964,142 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">data_raw_rename1</span>,
      file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html" class="external-link">here</a></span><span class="op">(</span><span class="va">knitroutput_folder</span>, <span class="st">"data_raw_rename1.RData"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="some-functions-that-may-help-explore-the-columns-within-the-list-of-data">Some functions that may help explore the columns within the list of data<a class="anchor" aria-label="anchor" href="#some-functions-that-may-help-explore-the-columns-within-the-list-of-data"></a>
+</h3>
+<p>There are often instances where column names are not used consistently between files or there are similar column names within one dataset (test vs. testwt). The following functions may help to summarize and explore the data.</p>
+<ul>
+<li>See <code><a href="../reference/summarize_variables.html">summarize_variables()</a></code> used above.</li>
+<li>
+<code><a href="../reference/summarize_ncol.html">summarize_ncol()</a></code> and <code>summarize_colnames</code> summarizes the information collected from <code><a href="../reference/summarize_variables.html">summarize_variables()</a></code>
+</li>
+</ul>
+<p>List the number of columns that match a given regex per dataset.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cols_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/summarize_ncol.html">summarize_ncol</a></span><span class="op">(</span><span class="va">data_raw_rename1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"entry"</span>, <span class="st">"length"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">cols_summary</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">file_sheet</th>
+<th align="right">entry</th>
+<th align="right">length</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">HWEYT_Dufur</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">HWEYT_Condon</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+<p>List the proportion of files that contain a given</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cols_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/summarize_colnames.html">summarize_colnames</a></span><span class="op">(</span><span class="va">data_raw_rename1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"entry"</span>, <span class="st">"length"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">cols_prop</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">colname</th>
+<th align="right">prop_files</th>
+<th align="left">col_var</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">entry</td>
+<td align="right">0.5</td>
+<td align="left">entry</td>
+</tr>
+<tr class="even">
+<td align="left">Length_Feet</td>
+<td align="right">1.0</td>
+<td align="left">length</td>
+</tr>
+<tr class="odd">
+<td align="left">Length_Inches</td>
+<td align="right">1.0</td>
+<td align="left">length</td>
+</tr>
+</tbody>
+</table>
+<p>Pull all the columns that match a given regex. This is useful for checking to see whether column names have been used consistently within and across datasets.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_colsfromlist.html">select_colsfromlist</a></span><span class="op">(</span><span class="va">data_raw_rename1</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"entry"</span>, <span class="st">"length"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="22%">
+<col width="15%">
+<col width="20%">
+<col width="21%">
+</colgroup>
+<thead><tr class="header">
+<th align="right">Length_Feet HWEYT_Condon 1</th>
+<th align="right">Length_Inches HWEYT_Condon 1</th>
+<th align="right">entry HWEYT_Dufur 2</th>
+<th align="right">Length_Feet HWEYT_Dufur 2</th>
+<th align="right">Length_Inches HWEYT_Dufur 2</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">15</td>
+<td align="right">9</td>
+<td align="right">1</td>
+<td align="right">15</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">15</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">14</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+<td align="right">10</td>
+<td align="right">3</td>
+<td align="right">14</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="right">15</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">13</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">14</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="right">15</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">15</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section level2">
 <h2 id="bind-all-data-frames">Bind all data.frames<a class="anchor" aria-label="anchor" href="#bind-all-data-frames"></a>
 </h2>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_all1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">data_raw_rename1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">data_all1</span>,
      file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html" class="external-link">here</a></span><span class="op">(</span><span class="va">knitroutput_folder</span>,<span class="st">"data_all1.RData"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -711,10 +1107,7 @@
 <div class="section level2">
 <h2 id="curate-column-contents">Curate column contents<a class="anchor" aria-label="anchor" href="#curate-column-contents"></a>
 </h2>
-</div>
-<div class="section level2">
-<h2 id="see-factcurator-package-for-validating-columns-and-column-contents">See <code>factcuratoR</code> package for validating columns and column contents<a class="anchor" aria-label="anchor" href="#see-factcurator-package-for-validating-columns-and-column-contents"></a>
-</h2>
+<p>See the <a href="https://idahoagstats.github.io/factcuratoR/" class="external-link"><strong>factcuratoR</strong></a> package for validating columns and column contents</p>
 </div>
   </div>
 
