@@ -1,4 +1,4 @@
-test_that("rename.col correctly renames column names", {
+test_that("rename.col() correctly renames column names", {
 
   ls <- list(df1 = data.frame(a = 1:3, b = 1:3),
              df2 = data.frame(a = 1:3, b = 1:3))
@@ -15,7 +15,7 @@ test_that("rename.col correctly renames column names", {
 
 })
 
-test_that("rename.col can handle duplicate names in a data.frame", {
+test_that("rename.col() can handle duplicate names in a data.frame", {
 
   ls <- list(df1 = data.frame(a = 1:3, b = 1:3), df2 = data.frame(a = 1:3, b = 1:3))
   rename_df <- data.frame(new_name = c("new1", "new1"), old_name = c("a", "b"))
@@ -27,7 +27,7 @@ test_that("rename.col can handle duplicate names in a data.frame", {
 
 })
 
-test_that("rename.col mathces names exactly", {
+test_that("rename.col() mathces names exactly", {
 
   ls <- list(df1 = data.frame(a = 1:3, ab = 1:3), df2 = data.frame(a = 1:3, b = 1:3))
   rename_df <- data.frame(new_name = c("a_new", "b_new"), old_name = c("a", "b"))
@@ -40,7 +40,7 @@ test_that("rename.col mathces names exactly", {
 })
 
 
-test_that("rename.col correctly renames column names (if no new name is given)", {
+test_that("rename.col()correctly renames column names (if no new name is given)", {
 
   ls <- list(df1 = data.frame(a = 1:3, b = 1:3), df2 = data.frame(a = 1:3, b = 1:3))
   rename_df <- data.frame(new_name = c("a_new", NA), old_name = c("a", "b"))
@@ -52,7 +52,7 @@ test_that("rename.col correctly renames column names (if no new name is given)",
 
 })
 
-test_that("rename.col can handle renaming each element in ls independently", {
+test_that("rename.col()can handle renaming each element in ls independently", {
 
   ls <- list(df1 = data.frame(a = 1:3, b = 1:3), df2 = data.frame(a = 1:3, b = 1:3))
   rename_df <- data.frame(new_name = c("a_df1", "b_df1", "a_df2", "b_df2"),
@@ -67,7 +67,7 @@ test_that("rename.col can handle renaming each element in ls independently", {
 
 })
 
-test_that("rename.col removes cols that have the label 'rm_col'", {
+test_that("rename.col()removes cols that have the label 'rm_col'", {
 
   ls <- list(df1 = data.frame(a = 1:3, b = 1:3), df2 = data.frame(a = 1:3, b = 1:3))
   rename_df <- data.frame(new_name = c("a_df1", "b_df1", "a_df2", "rm_col"),
