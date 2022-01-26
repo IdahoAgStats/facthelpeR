@@ -1,3 +1,4 @@
+# This file is to test the behavior of wrappers, especially with quosures/tidyeval
 #https://community.rstudio.com/t/programming-with-a-function-that-accepts-bare-arguments/6756/4
 # what does enexpr() do versus enquo()? -> enquo() looks like it also provides an environment
 # https://stackoverflow.com/questions/53093630/r-bare-to-quosure-in-function-invalid-argument-type
