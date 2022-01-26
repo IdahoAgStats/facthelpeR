@@ -24,7 +24,7 @@ read_sheets <- function(file_name, data_folder, skip_df){
                                 path = path,
                                 skip = .y,
                                 na = c("NA", ".", "none", " ", "No data", "No Data")) %>%
-                       filter_all(any_vars(complete.cases(.))) ,
+                       filter(!if_all(everything(), ~is.na(.))),
                      sheet = .x,
                      filename = file_name))
 
@@ -36,7 +36,6 @@ read_sheets <- function(file_name, data_folder, skip_df){
 #'
 #' Note: this function was previously read.excelsheet()
 #' @inheritParams readxl::read_excel
-#' @importFrom stats complete.cases
 #' @param complete_cases A logical. The default TRUE will remove empty rows
 #' @family readin functions
 #' @export
@@ -52,7 +51,7 @@ read_excelsheet <- function(path, sheet, skip, na, col_names, guess_max,
 
   if (complete_cases){
     sheet_df <- sheet_df %>%
-      filter_all(any_vars(complete.cases(.))) # remove empty rows
+      filter(!if_all(everything(), ~is.na(.))) # remove empty rows
   }
 
   sheet_df
