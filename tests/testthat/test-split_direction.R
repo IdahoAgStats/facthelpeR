@@ -7,32 +7,37 @@ df2 <- data.frame(b, b)
 df3 <- data.frame(d, d, blank, d)
 
 test_that("split_direction() returns expected entries in the list", {
-  test <- split_direction(df1,direction = "row")
-
+  test <- split_direction(df1, direction = "row")
   expect_equal(length(test), 2)
 })
 
 test_that("split_df() returns returns expected entries in the list", {
-  test <- split_df(df1)
-
+  test <- split_df(df1, showWarnig = FALSE)
   expect_equal(length(test), 2)
 })
 
 test_that("split_direction() returns expected entries in the list", {
-  test <- split_direction(df2,direction = "row")
-
+  test <- split_direction(df2, direction = "row")
   expect_equal(length(test), 4)
 })
 
 test_that("split_df() returns returns expected entries in the list", {
-  test <- split_df(df2)
-
+  test <- split_df(df2, showWarnig = FALSE)
   expect_equal(length(test), 4)
 })
 
 test_that("split_direction() returns expected entries in the list", {
-  test <- split_direction(df3,direction = "col")
+  test <- split_direction(df3, direction = "col")
+  expect_equal(length(test), 2)
+})
 
+test_that("split_direction() returns data.frames for each object in the list", {
+  test <- split_direction(df3, direction = "col")
+  expect_equal(unlist(lapply(test, function(x) typeof(x))), c("list", "list"))
+})
+
+test_that("split_df() returns returns expected entries in the list", {
+  test <- split_df(df3, showWarnig = FALSE)
   expect_equal(length(test), 2)
 })
 

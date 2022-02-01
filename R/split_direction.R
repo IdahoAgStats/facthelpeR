@@ -9,27 +9,32 @@
 #' @family split tables functions
 #' @export
 split_direction <- function(df, direction){
+
   if(direction == "col"){
+
     col_has_data <- unname(map_lgl(df,~!all(is.na(.x))))
     df_mapping <- make_df_index(col_has_data)
-    out <- map(df_mapping,~df[,.x])
+    out <- map(df_mapping, ~df[,.x, drop = FALSE])
+
   } else if(direction == "row"){
+
     row_has_data <- df %>%
       mutate_all(~!is.na(.x)) %>%
       as.matrix() %>%
       apply(1,any)
+
     df_mapping <- make_df_index(row_has_data)
-    out <- map(df_mapping,~df[.x,])
+    out <- map(df_mapping,~df[.x, , drop = FALSE])
   }
   return(out)
 }
 
 
-
 #' Split a large table into smaller tables if there are blank columns or rows
 #'
 #' Split a large table into smaller tables if there are blank columns or rows.
-#' This function detects
+#' This function can detect several tables even if they are not neatly placed
+#' (e.g. not placed in a grid)
 #'
 #' If you still see entire rows or columns missing. Please increase complexity
 #' @inheritParams split_direction
@@ -53,10 +58,7 @@ split_df <- function(df, showWarnig = TRUE, complexity = 1){
 
 }
 
-
-
-
-#' utility function to get rle as a named vector
+#' Utility function to get rle as a named vector
 #'
 #' @param v A vector
 #' @keywords internal
@@ -67,7 +69,7 @@ vec_rle <- function(v){
   return(out)
 }
 
-#' utility function to map table with their columns/rows in a bigger table
+#' Utility function to separate a table into list elements based on a blank row or column
 #'
 #' Utility function to separate a table into list elements based on a blank row or column
 #' @inheritParams vec_rle
