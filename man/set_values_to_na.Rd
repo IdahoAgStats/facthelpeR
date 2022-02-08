@@ -4,14 +4,22 @@
 \alias{set_values_to_na}
 \title{Set -9 and 0s to NA for given columns}
 \usage{
-set_values_to_na(df, cols_neg9_to_na = NULL, cols_zeros_to_na = NULL)
+set_values_to_na(
+  df,
+  cols_neg9_to_na = NULL,
+  cols_zeros_to_na = NULL,
+  cols_neg_to_na = NULL
+)
 }
 \arguments{
-\item{cols_neg9_to_na}{A vector of the column names for which -9 should be
+\item{cols_neg9_to_na}{A vector of the column names for which -9 values
+will be set to NA}
+
+\item{cols_zeros_to_na}{A vector of the column names for which 0 will be
 set to NA}
 
-\item{cols_zeros_to_na}{A vector of the column names for which 0 should be
-set to NA}
+\item{cols_neg_to_na}{A vector of the column names for which any negative values
+will be set to NA}
 
 \item{A}{data.frame}
 }

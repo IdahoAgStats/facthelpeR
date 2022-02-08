@@ -14,4 +14,8 @@ test_that("set_values_to_na() returns expected entries in the list", {
                             cols_zeros_to_na = "b")
   expect_equal(sum(is.na(test3)), 5)
 
+  test3 <- set_values_to_na(df,
+                            cols_neg_to_na = "a")
+  expect_equal(sum(is.na(test3)), 3)
+
 })
