@@ -3,7 +3,7 @@
 \name{rm_dup_col}
 \alias{rm_dup_col}
 \alias{rm.dup_col}
-\title{Remove duplicate columns}
+\title{Remove duplicate columns that may have different column names}
 \usage{
 rm_dup_col(df, concat_names = TRUE)
 

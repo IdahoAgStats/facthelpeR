@@ -1,4 +1,4 @@
-#' Remove duplicate columns
+#' Remove duplicate columns that may have different column names
 #'
 #' Remove duplicate columns.
 #' If the columns are duplicates, except one column contains NAs, then
