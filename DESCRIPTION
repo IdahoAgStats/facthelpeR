@@ -6,7 +6,7 @@ Authors@R:
            family = "Tay",
            role = c("aut", "cre"),
            email = "jacquelinejtay@gmail.com")
-Description: Helper functions for importing data
+Description: The facthelpeR package contains helper functions for importing and cleaning data.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
@@ -26,3 +26,9 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Imports: 
+    magrittr,
+    here,
+    readODS,
+    stats,
+    utils

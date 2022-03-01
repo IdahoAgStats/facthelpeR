@@ -7,6 +7,8 @@
 find_col_info(df, cols_check, by_col)
 }
 \arguments{
+\item{df}{A data frame}
+
 \item{cols_check}{A character vector of column names to check}
 
 \item{by_col}{A bare variable to summarise}
