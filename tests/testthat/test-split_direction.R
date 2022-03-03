@@ -12,7 +12,7 @@ test_that("split_direction() returns expected entries in the list", {
 })
 
 test_that("split_df() returns returns expected entries in the list", {
-  test <- split_df(df1, showWarnig = FALSE)
+  test <- split_df(df1, showWarning = FALSE)
   expect_equal(length(test), 2)
 })
 
@@ -22,7 +22,7 @@ test_that("split_direction() returns expected entries in the list", {
 })
 
 test_that("split_df() returns returns expected entries in the list", {
-  test <- split_df(df2, showWarnig = FALSE)
+  test <- split_df(df2, showWarning = FALSE)
   expect_equal(length(test), 4)
 })
 
@@ -37,7 +37,7 @@ test_that("split_direction() returns data.frames for each object in the list", {
 })
 
 test_that("split_df() returns returns expected entries in the list", {
-  test <- split_df(df3, showWarnig = FALSE)
+  test <- split_df(df3, showWarning = FALSE)
   expect_equal(length(test), 2)
 })
 

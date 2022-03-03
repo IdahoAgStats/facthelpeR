@@ -12,9 +12,11 @@ summarize.variables
 \arguments{
 \item{data_list}{A list of data.frames}
 
-\item{reg_ex}{A regular expression to select column names
+\item{reg_ex}{A regular expression to select column names}
+
+\item{reg_ex_exclude}{A regular expression to exclude columns
 Use NULL to return all column names
-It is possible to edit this function to use the above function (select.colsfromlist)}
+It is possible to edit this function to use the function select_colsfromlist())}
 }
 \description{
 Summarize information on variables that match a given regex.

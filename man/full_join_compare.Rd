@@ -9,8 +9,17 @@ column originated}
 full_join_compare(df1, df2, by, suffix1, suffix2)
 }
 \arguments{
+\item{df1}{A data frame}
+
+\item{df2}{A second data frame to join and compare}
+
+\item{by}{Column(s) to join by}
+
 \item{suffix1}{A string denoting the suffix to attach to the columns
 associated with the first data.frame.  If NA, no suffix attached}
+
+\item{suffix2}{A string denoting the suffix to attach to the columns
+associated with the second data.frame.  If NA, no suffix attached}
 }
 \description{
 Full join data.frames to compare columns

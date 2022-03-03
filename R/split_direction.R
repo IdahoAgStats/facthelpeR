@@ -12,19 +12,19 @@ split_direction <- function(df, direction){
 
   if(direction == "col"){
 
-    col_has_data <- unname(map_lgl(df,~!all(is.na(.x))))
+    col_has_data <- unname(purrr::map_lgl(df,~!all(is.na(.x))))
     df_mapping <- make_df_index(col_has_data)
-    out <- map(df_mapping, ~df[,.x, drop = FALSE])
+    out <- purrr::map(df_mapping, ~df[,.x, drop = FALSE])
 
   } else if(direction == "row"){
 
     row_has_data <- df %>%
-      mutate_all(~!is.na(.x)) %>%
+      mutate(across(everything(), ~!is.na(.x))) %>%
       as.matrix() %>%
       apply(1,any)
 
     df_mapping <- make_df_index(row_has_data)
-    out <- map(df_mapping,~df[.x, , drop = FALSE])
+    out <- purrr::map(df_mapping,~df[.x, , drop = FALSE])
   }
   return(out)
 }
@@ -37,11 +37,14 @@ split_direction <- function(df, direction){
 #' (e.g. not placed in a grid)
 #'
 #' If you still see entire rows or columns missing. Please increase complexity
+#' @param showWarning A logical denoting whether to show warning message
+#' @param complexity An integer. Starting at 1, increase complexity if tables
+#' don't split correctly.
 #' @inheritParams split_direction
 #' @family split tables functions
 #' @export
-split_df <- function(df, showWarnig = TRUE, complexity = 1){
-  if(showWarnig){
+split_df <- function(df, showWarning = TRUE, complexity = 1){
+  if(showWarning){
     warning("Please don't use first row as column names.")
   }
 
@@ -49,10 +52,10 @@ split_df <- function(df, showWarnig = TRUE, complexity = 1){
 
   for(i in 1 :complexity){
     out <- out %>%
-      map(~split_direction(.x,"row")) %>%
-      flatten() %>%
-      map(~split_direction(.x,"col")) %>%
-      flatten()
+      purrr::map(~split_direction(.x,"row")) %>%
+      purrr::flatten() %>%
+      purrr::map(~split_direction(.x,"col")) %>%
+      purrr::flatten()
   }
   return(out)
 
@@ -77,7 +80,7 @@ vec_rle <- function(v){
 make_df_index <- function(v){
   table_rle <- vec_rle(v)
   divide_points <- c(0,cumsum(names(table_rle)))
-  table_index <- map2((divide_points + 1)[1:length(divide_points)-1],
+  table_index <- purrr::map2((divide_points + 1)[1:length(divide_points)-1],
                       divide_points[2:length(divide_points)],
                       ~.x:.y)
   return(table_index[table_rle])

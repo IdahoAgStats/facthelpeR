@@ -44,8 +44,9 @@ find_col_info <- function(df, cols_check, by_col){
 #' contain the same information.
 #' @param data_list A list of data.frames
 #' @param reg_ex A regular expression to select column names
+#' @param reg_ex_exclude A regular expression to exclude columns
 #' Use NULL to return all column names
-#' It is possible to edit this function to use the above function (select.colsfromlist)
+#' It is possible to edit this function to use the function select_colsfromlist())
 #' @family summarize column functions
 #' @export
 summarize_variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){

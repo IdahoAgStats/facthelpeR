@@ -1,8 +1,13 @@
 #' Full join data.frames to compare columns
 #' add a suffix before the merge to track where the
 #' column originated
+#' @param df1 A data frame
+#' @param df2 A second data frame to join and compare
+#' @param by Column(s) to join by
 #' @param suffix1 A string denoting the suffix to attach to the columns
 #' associated with the first data.frame.  If NA, no suffix attached
+#' @param suffix2 A string denoting the suffix to attach to the columns
+#' associated with the second data.frame.  If NA, no suffix attached
 #' @family join functions
 #' @export
 full_join_compare <- function(df1, df2, by, suffix1, suffix2){

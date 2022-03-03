@@ -100,13 +100,17 @@ rm_dup_col <- function(df, concat_names = TRUE){
 }
 
 #' Test whether a column has identical elements
-#'
+#' @description
 #' Test whether a column has identical elements.
 #' The function will return TRUE if:
 #' all values are equal,
 #' all values are equal and there are NAs,
 #' all values are NA.
+#' @details
 #' https://stackoverflow.com/questions/31968623/how-to-check-whether-a-column-contains-only-identical-elements-in-r#:~:text=You%20can%20use%20the%20duplicated,column%20contains%20all%20identical%20values.&text=If%20x%20contains%20NAs%20this,mixed%20columns%20will%20return%20FALSE%20.
+#' @param df A data frame
+#' @param colname A string. Name of column to test
+
 test.col_id_elements <- function(df, colname){
 
   dim(table(df[[colname]], useNA = "no")) <= 1

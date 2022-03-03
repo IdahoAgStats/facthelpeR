@@ -4,10 +4,15 @@
 \alias{split_df}
 \title{Split a large table into smaller tables if there are blank columns or rows}
 \usage{
-split_df(df, showWarnig = TRUE, complexity = 1)
+split_df(df, showWarning = TRUE, complexity = 1)
 }
 \arguments{
 \item{df}{A data.frame to be split}
+
+\item{showWarning}{A logical denoting whether to show warning message}
+
+\item{complexity}{An integer. Starting at 1, increase complexity if tables
+don't split correctly.}
 }
 \description{
 Split a large table into smaller tables if there are blank columns or rows.

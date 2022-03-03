@@ -12,6 +12,8 @@ set_values_to_na(
 )
 }
 \arguments{
+\item{df}{A data.frame}
+
 \item{cols_neg9_to_na}{A vector of the column names for which -9 values
 will be set to NA}
 
@@ -20,8 +22,6 @@ set to NA}
 
 \item{cols_neg_to_na}{A vector of the column names for which any negative values
 will be set to NA}
-
-\item{A}{data.frame}
 }
 \description{
 Set -9 and 0s to NA for given columns

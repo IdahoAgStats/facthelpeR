@@ -1,5 +1,6 @@
 #' A wrapper for read_excelheader to maintain backwards compatibility
 #'
+#'@inheritParams read_header
 #' @rdname read_excelheader
 #' @export
 read.excelheader <- function(sheet_name, path, header_start, header_end, unique_names){

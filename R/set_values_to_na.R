@@ -1,6 +1,6 @@
 #' Set -9 and 0s to NA for given columns
 #'
-#' @param A data.frame
+#' @param df A data.frame
 #' @param cols_neg9_to_na A vector of the column names for which -9 values
 #' will be set to NA
 #' @param cols_zeros_to_na A vector of the column names for which 0 will be
