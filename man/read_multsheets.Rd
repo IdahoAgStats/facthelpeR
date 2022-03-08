@@ -71,6 +71,7 @@ Other readin functions:
 \code{\link{list_sheetnames}()},
 \code{\link{read_excelsheet}()},
 \code{\link{read_header}()},
+\code{\link{read_ods_multsheets}()},
 \code{\link{read_sheets}()}
 }
 \concept{readin functions}

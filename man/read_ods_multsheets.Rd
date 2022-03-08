@@ -15,3 +15,12 @@ A list of data frames--one data frame for each sheet
 \description{
 A wrapper around read_ods to read multiple sheets in a .ods file
 }
+\seealso{
+Other readin functions: 
+\code{\link{list_sheetnames}()},
+\code{\link{read_excelsheet}()},
+\code{\link{read_header}()},
+\code{\link{read_multsheets}()},
+\code{\link{read_sheets}()}
+}
+\concept{readin functions}
