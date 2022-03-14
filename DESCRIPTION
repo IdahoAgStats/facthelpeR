@@ -1,11 +1,15 @@
 Package: facthelpeR
 Title: Helper Functions for Importing and Cleaning Data
 Version: 0.3.0
-Authors@R: 
+Authors@R: c(
     person(given = "Jacqueline",
            family = "Tay",
            role = c("aut", "cre"),
-           email = "jacquelinejtay@gmail.com")
+           email = "jacquelinejtay@gmail.com"),
+    person(given = "Emily",
+           family = "Galvin",
+           role = "ctb",
+           email = "emilymgalvin@gmail.com"))
 Description: The facthelpeR package contains helper functions for importing and cleaning data.
 License: GPL (>= 3)
 Encoding: UTF-8

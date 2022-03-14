@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">facthelpeR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -35,6 +35,9 @@
       <a href="../articles/intro_facthelper.html">Introduction to facthelpeR</a>
     </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -57,6 +60,22 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read.excelheader</span><span class="op">(</span><span class="va">sheet_name</span>, <span class="va">path</span>, <span class="va">header_start</span>, <span class="va">header_end</span>, <span class="va">unique_names</span><span class="op">)</span></code></pre></div>
     </div>
 
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>sheet_name</dt>
+<dd><p>A string denoting the sheetname</p></dd>
+<dt>path</dt>
+<dd><p>A path to the file that contains the sheet</p></dd>
+<dt>header_start</dt>
+<dd><p>A numeric denoting the row number of the start of the header
+Note!: If there are any blank rows at the top of the sheet, start the row counting
+at the first filled row
+https://github.com/tidyverse/readxl/issues/194#issuecomment-266829259</p></dd>
+<dt>header_end</dt>
+<dd><p>A numeric denoting the row number of the end of the header</p></dd>
+<dt>unique_names</dt>
+<dd><p>A logical denoting whether make.unique() for the column names</p></dd>
+</dl></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
