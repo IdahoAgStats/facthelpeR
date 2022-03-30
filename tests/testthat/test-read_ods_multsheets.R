@@ -3,7 +3,9 @@ data_folder <- testthat::test_path("test_example_files")
 
 test_that("read_ods_multsheets reads in the correct number of elements", {
 
-    ods_list <- read_ods_multsheets(paste0(data_folder, "/", "test_read_ods_multsheets1.ods"))
+  files <- list.files(data_folder, recursive = TRUE, pattern = "test_read_ods_multsheets1.ods")
+
+    ods_list <- read_ods_multsheets(paste(data_folder, files, sep = "/"))
 
   expect_equal(length(ods_list), 3)
 })
@@ -18,9 +20,11 @@ test_that("read_ods_multsheets reads in the correct number of files", {
 
 test_that("read_ods_multsheets names sheets as expected", {
 
-    ods_list <- read_ods_multsheets(paste0(data_folder, "/", "test_read_ods_multsheets1.ods"))
+    ods_list <- read_ods_multsheets(paste(data_folder, "test_read_ods_multsheets1.ods", sep = "/"))
 
-  expect_equal(names(ods_list), c("setosa", "versicolor", "virginica"))
+  expect_equal(names(ods_list), c("test_read_ods_multsheets1_setosa",
+                                  "test_read_ods_multsheets1_versicolor",
+                                  "test_read_ods_multsheets1_virginica"))
 
 })
 
@@ -33,6 +37,6 @@ test_that("read_ods_multsheets reads in the expected number of rows", {
 
   ods_list <- read_ods_multsheets(paste0(data_folder, "/", "test_read_ods_multsheets1.ods"))
 
-  expect_equal(nrow(ods_list), nrow(iris_list))
+  expect_equal(nrow(do.call(cbind, do.call(c, ods_list))), nrow(do.call(cbind, do.call(c, iris_list))))
 
 })

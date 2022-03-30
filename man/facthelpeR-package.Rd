@@ -11,5 +11,10 @@ The facthelpeR package contains helper functions for importing and cleaning data
 \author{
 \strong{Maintainer}: Jacqueline Tay \email{jacquelinejtay@gmail.com}
 
+Other contributors:
+\itemize{
+  \item Emily Galvin \email{emilymgalvin@gmail.com} [contributor]
+}
+
 }
 \keyword{internal}
