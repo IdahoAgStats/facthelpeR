@@ -16,6 +16,10 @@
 #' @family summarize column functions
 #' @export
 find_col_info <- function(df, cols_check, by_col){
+  # added functionality to return a message instead of an error if cols_check
+  # is an empty vector (no invalid column names left to check)
+  out <- if(length(cols_check) > 0) {
+
   df2 <- df %>%
     mutate(across(.cols = everything(),
                   .fns = ~ ifelse(.x == -9, NA, .x)))
@@ -32,6 +36,10 @@ find_col_info <- function(df, cols_check, by_col){
   })
 
   bind_rows(ans) %>% arrange(variable)
+  } else {
+    print("No column names left to check. Great job!")
+  }
+  out
 }
 
 #' Summarize information on variables that match a given regex

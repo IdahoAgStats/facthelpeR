@@ -12,11 +12,19 @@ test_that("summarize.variables returns the correct summary", {
   expect_equal(summarize.variables(ls1, NULL), ans)
 })
 
-test_that("find_col_info()", {
+test_that("find_col_info returns expected results", {
   cols <-  c("a","b", "c")
   df <- data.frame(year = c(91, 92,92), a = 1:3, b = c(-9, -9, 2), c = c(NA, "a", "b") )
   ans <- data.frame(n = c(3, 1, 2), contained_in = c("91;92", "92", "92"), variable = cols, example = c("1", "2", "a"))
   test <- find_col_info(df, cols, year)
   expect_equal(test,ans)
 
+})
+
+test_that("find_col_info outputs a message if there are no columns to check", {
+  cols <- vector()
+  df <- data.frame(year = c(91, 92,92), a = 1:3, b = c(-9, -9, 2), c = c(NA, "a", "b"))
+  ans <- "No column names left to check. Great job!"
+  test <- find_col_info(df, cols, year)
+  expect_equal(test, ans)
 })
