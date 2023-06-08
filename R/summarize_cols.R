@@ -21,11 +21,11 @@ find_col_info <- function(df, cols_check, by_col){
   out <- if(length(cols_check) > 0) {
 
   df2 <- df %>%
-    mutate(across(.cols = everything(),
+    mutate(across(.cols = tidyselect::everything(),
                   .fns = ~ ifelse(.x == -9, NA, .x)))
 
   ans <- map(cols_check, function(x){
-    x_sym <- sym(x)
+    x_sym <- rlang::sym(x)
     ans <- df2 %>%
       filter(!is.na(!!x_sym)) %>%
       dplyr::summarise(n = n(),  # count the total number of entries
@@ -63,18 +63,18 @@ summarize_variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){
     if (is.null(reg_ex)){
       dat_cols1 <- x
     } else {
-      dat_cols1 <- x %>% select(matches(reg_ex))
+      dat_cols1 <- x %>% select(tidyselect::matches(reg_ex))
     }
 
     if (!is.null(reg_ex_exclude)){
-      dat_cols1 <- dat_cols1 %>% select(!matches(reg_ex_exclude))
+      dat_cols1 <- dat_cols1 %>% select(!tidyselect::matches(reg_ex_exclude))
     }
 
     if (ncol(dat_cols1) == 0){
       ans2 <- NULL
     } else {
       col_type <- dat_cols1 %>%
-        summarise(across(everything(), class)) %>%
+        summarise(across(tidyselect::everything(), class)) %>%
         slice(1) %>%
         gather(., colname, type)
 
@@ -84,7 +84,7 @@ summarize_variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){
         filter(count_na == min(.$count_na)) %>%
         select(-count_na) %>%
         slice(1) %>%
-        mutate(across(everything(), as.character)) %>%
+        mutate(across(tidyselect::everything(), as.character)) %>%
         gather(., colname, example)
 
       ans2 <- left_join(col_type, col_ex, by = "colname") %>%
@@ -116,7 +116,7 @@ select_colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
     dat <- data_list[[x]]
     name <- names(data_list[x])
 
-    dat_cols1 <- dat %>% select(matches(reg_ex))
+    dat_cols1 <- dat %>% select(tidyselect::matches(reg_ex))
 
     if (ncol(dat_cols1) > 0){
       names(dat_cols1) <- paste(names(dat_cols1), name, x)

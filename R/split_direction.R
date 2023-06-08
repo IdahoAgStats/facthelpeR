@@ -19,7 +19,7 @@ split_direction <- function(df, direction){
   } else if(direction == "row"){
 
     row_has_data <- df %>%
-      mutate(across(everything(), ~!is.na(.x))) %>%
+      mutate(across(tidyselect::everything(), ~!is.na(.x))) %>%
       as.matrix() %>%
       apply(1,any)
 

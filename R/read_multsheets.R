@@ -100,7 +100,7 @@ read_multsheets <- function(data_folder,
 
       return(dat)
     }) %>%
-    set_names(df$list_names)
+    rlang::set_names(df$list_names)
 
   return(dat_ls)
 }

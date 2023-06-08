@@ -15,11 +15,11 @@ set_values_to_na <- function(df,
                              cols_neg_to_na = NULL){
 
   df_na <- df %>%
-    mutate(across(.cols = all_of(cols_neg9_to_na),
+    mutate(across(.cols = tidyselect::all_of(cols_neg9_to_na),
                   .fns = ~ ifelse(.x %in% c(-9, -.9), NA, .x))) %>%
-    mutate(across(.cols = all_of(cols_zeros_to_na),
+    mutate(across(.cols = tidyselect::all_of(cols_zeros_to_na),
                   .fns = ~ ifelse(.x == 0, NA, .x))) %>%
-    mutate(across(.cols = all_of(cols_neg_to_na),
+    mutate(across(.cols = tidyselect::all_of(cols_neg_to_na),
                   .fns = ~ ifelse(.x < 0, NA, .x)))
 
 }

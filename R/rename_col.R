@@ -22,7 +22,7 @@ rename_col <- function(ls,
                        element_col = NULL,
                        rm_col = FALSE){
 
-  element_col_enquo <- enquo(element_col)
+  element_col_enquo <- rlang::enquo(element_col)
 
   rename_df <- rename_df %>% ungroup() %>%
     mutate({{rename_col}} :=
@@ -79,11 +79,11 @@ rename.col <- function(ls,
   message("This function name is being retained for backwards compatibility.
           Please use rename_col()")
 
-  rename_col <- enexpr(rename_col)
-  old_col <- enexpr(old_col)
-  element_col <- enexpr(element_col)
+  rename_col <- rlang::enexpr(rename_col)
+  old_col <- rlang::enexpr(old_col)
+  element_col <- rlang::enexpr(element_col)
 
-  eval(expr(rename_col(ls = ls,
+  eval(rlang::expr(rename_col(ls = ls,
              rename_df = rename_df,
              rename_col = !!rename_col,
              old_col = !!old_col,
