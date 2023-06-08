@@ -8,6 +8,6 @@
 "Program ID","character","HRW20077","HWEYT_Condon; HWEYT_Dufur","3; 11"
 "Protein","numeric","9.2; 10.4","HWEYT_Condon; HWEYT_Dufur","8; 6"
 "Rep","numeric","1","HWEYT_Condon; HWEYT_Dufur","2; 10"
-"sourcefile","character","HWEYT_Condon; HWEYT_Dufur","HWEYT_Condon; HWEYT_Dufur","11; 12"
 "Test","numeric","61.1; 62.7","HWEYT_Condon; HWEYT_Dufur","7; 5"
 "Weight","numeric","3.067; 3.081","HWEYT_Condon; HWEYT_Dufur","9; 7"
+"sourcefile","character","HWEYT_Condon; HWEYT_Dufur","HWEYT_Condon; HWEYT_Dufur","11; 12"

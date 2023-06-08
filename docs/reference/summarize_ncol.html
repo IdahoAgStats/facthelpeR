@@ -33,7 +33,7 @@ A wrapper for summarize_ncol to maintain backwards compatibility"><!-- mathjax -
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -69,19 +69,22 @@ This function detects columns with similar names within a dataset</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">summarize_ncol</span><span class="op">(</span><span class="va">ls</span>, <span class="va">col_vec</span><span class="op">)</span>
-
-<span class="va">summarize.ncol</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">summarize_ncol</span><span class="op">(</span><span class="va">ls</span>, <span class="va">col_vec</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">summarize.ncol</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>ls</dt>
 <dd><p>A list of data.frames</p></dd>
+
+
 <dt>col_vec</dt>
 <dd><p>A vector containing string regex.
 Each string will correspond to the columns to pull from each dataset
 in order to summarize the number of columns associated with that regex string</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -104,7 +107,7 @@ in order to summarize the number of columns associated with that regex string</p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

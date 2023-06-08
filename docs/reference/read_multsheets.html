@@ -31,7 +31,7 @@ The data.frame can be initalized with the function list_sheetnames()"><!-- mathj
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -66,23 +66,23 @@ The data.frame can be initalized with the function <code><a href="list_sheetname
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_multsheets</span><span class="op">(</span>
-  <span class="va">data_folder</span>,
-  <span class="va">df</span>,
-  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span><span class="op">)</span>,
-  <span class="va">col_names</span>,
-  guess_max <span class="op">=</span> <span class="fl">1000</span>,
-  complete_cases <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">read.multsheets</span><span class="op">(</span>
-  <span class="va">data_folder</span>,
-  <span class="va">df</span>,
-  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span><span class="op">)</span>,
-  <span class="va">col_names</span>,
-  guess_max <span class="op">=</span> <span class="fl">1000</span>,
-  complete_cases <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_multsheets</span><span class="op">(</span></span>
+<span>  <span class="va">data_folder</span>,</span>
+<span>  <span class="va">df</span>,</span>
+<span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span><span class="op">)</span>,</span>
+<span>  <span class="va">col_names</span>,</span>
+<span>  guess_max <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  complete_cases <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read.multsheets</span><span class="op">(</span></span>
+<span>  <span class="va">data_folder</span>,</span>
+<span>  <span class="va">df</span>,</span>
+<span>  na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span><span class="op">)</span>,</span>
+<span>  <span class="va">col_names</span>,</span>
+<span>  guess_max <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  complete_cases <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -90,6 +90,8 @@ The data.frame can be initalized with the function <code><a href="list_sheetname
     <dl><dt>data_folder</dt>
 <dd><p>A string denoting the folder that contains the
 files to be read in</p></dd>
+
+
 <dt>df</dt>
 <dd><p>A data.frame with the column "filename", which can be
 inialized by the function <code><a href="list_sheetnames.html">list_sheetnames()</a></code>
@@ -106,20 +108,29 @@ corresponds to skipping 0 rows.  If header_end is not provided, the default
 is set to 1, which will skip 0 rows.
 Note: If header_end is NA, the file/sheet will be removed (not read in)</p></li>
 </ul></dd>
+
+
 <dt>na</dt>
 <dd><p>Character vector of strings to interpret as missing values. By
 default, readxl treats blank cells as missing data.</p></dd>
+
+
 <dt>col_names</dt>
 <dd><p><code>TRUE</code> to use the first row as column names, <code>FALSE</code> to get
 default names, or a character vector giving a name for each column. If user
 provides <code>col_types</code> as a vector, <code>col_names</code> can have one entry per
 column, i.e. have the same length as <code>col_types</code>, or one entry per
 unskipped column.</p></dd>
+
+
 <dt>guess_max</dt>
 <dd><p>Maximum number of data rows to use for guessing column
 types.</p></dd>
+
+
 <dt>complete_cases</dt>
 <dd><p>A logical. The default TRUE will remove empty rows</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -143,7 +154,7 @@ types.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -27,7 +27,7 @@ A wrapper for select_colsfromlist to maintain backwards compatibility"><!-- math
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -59,20 +59,25 @@ A wrapper for select_colsfromlist to maintain backwards compatibility"><!-- math
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">select_colsfromlist</span><span class="op">(</span><span class="va">data_list</span>, <span class="va">reg_ex</span>, multnames_only <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="va">select.colsfromlist</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">select_colsfromlist</span><span class="op">(</span><span class="va">data_list</span>, <span class="va">reg_ex</span>, multnames_only <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">select.colsfromlist</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data_list</dt>
 <dd><p>A list with each element containing a data.frame</p></dd>
+
+
 <dt>reg_ex</dt>
 <dd><p>A string containing a regular expression that will match the columns to be returned</p></dd>
+
+
 <dt>multnames_only</dt>
 <dd><p>A logical expressing whether to only return data
 with more than one column corresponding to a given regular expression</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -95,7 +100,7 @@ with more than one column corresponding to a given regular expression</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

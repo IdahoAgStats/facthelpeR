@@ -28,7 +28,7 @@ Note: this function was previously read.sheets()"><!-- mathjax --><script src="h
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -61,21 +61,26 @@ Note: this function was previously read.sheets()</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_sheets</span><span class="op">(</span><span class="va">file_name</span>, <span class="va">data_folder</span>, <span class="va">skip_df</span><span class="op">)</span>
-
-<span class="fu">read.sheets</span><span class="op">(</span><span class="va">file_name</span>, <span class="va">data_folder</span>, <span class="va">skip_df</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_sheets</span><span class="op">(</span><span class="va">file_name</span>, <span class="va">data_folder</span>, <span class="va">skip_df</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read.sheets</span><span class="op">(</span><span class="va">file_name</span>, <span class="va">data_folder</span>, <span class="va">skip_df</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>file_name</dt>
 <dd><p>A string of a filename</p></dd>
+
+
 <dt>data_folder</dt>
 <dd><p>A string of the path of the folder that contains the file</p></dd>
+
+
 <dt>skip_df</dt>
 <dd><p>A data.frame containing the following columns: filename, sheets, and skip,
 which contain string of filename, string of sheet name, and integer of number of rows to skip, respectively
 https://stackoverflow.com/questions/60898358/how-can-i-add-the-sheet-name-to-my-data-frame-as-a-variable</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -99,7 +104,7 @@ https://stackoverflow.com/questions/60898358/how-can-i-add-the-sheet-name-to-my-
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
