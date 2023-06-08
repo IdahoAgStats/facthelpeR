@@ -1,4 +1,3 @@
-library(magrittr)
 data_folder <- testthat::test_path("test_example_files")
 
 

@@ -1,5 +1,4 @@
 data_folder <- testthat::test_path("test_example_files")
-library(magrittr)
 
 test_that("read_header reads in header correctly", {
   sheets <- list_sheetnames(data_folder, "test_skiprows.xls") %>%
