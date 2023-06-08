@@ -1,12 +1,11 @@
 #' A wrapper for read_excelheader to maintain backwards compatibility
 #'
-#'@inheritParams read_header
-#' @rdname read_excelheader
+#' @rdname read_header
 #' @export
 read.excelheader <- function(sheet_name, path, header_start, header_end, unique_names){
   message("This function name is being retained for backwards compatibility.
-          Please use read_excelheader()")
-  read_excelheader(sheet_name = sheet_name,
+          Please use read_header()")
+  read_header(sheet_name = sheet_name,
                    path = path,
                    header_start = header_start,
                    header_end = header_end,
