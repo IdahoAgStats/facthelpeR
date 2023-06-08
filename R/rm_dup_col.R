@@ -16,7 +16,8 @@ rm_dup_col <- function(df, concat_names = TRUE){
   df <- as.data.frame(df) # cannot be a tibble otherwise identical() will fail if column names differ
 
   cols <- list(first = 1:ncol(df), second = 1:ncol(df))
-  cols_compare <- cols %>% cross_df() %>% arrange(first) %>% filter(second > first)
+  cols_compare <- cols %>% tidyr::expand_grid(first = .$first, second = .$second) %>%
+    arrange(first) %>% filter(second > first)
 
   col_matches <- map2(cols_compare$first, cols_compare$second, function(x, y){
     df_2col <- data.frame(first = df[,x], second = df[,y])
@@ -84,7 +85,7 @@ rm_dup_col <- function(df, concat_names = TRUE){
         unique(.)
 
       # This is a bit hacky because rename.col() was developed for lists
-      z_clean <- rename.col(list(z_clean),
+      z_clean <- rename_col(list(z_clean),
                             rename_df = rename_df,
                             rename_col = rename_keep,
                             old_col = name_keep,
@@ -100,6 +101,7 @@ rm_dup_col <- function(df, concat_names = TRUE){
 }
 
 #' Test whether a column has identical elements
+#' @keywords internal
 #' @description
 #' Test whether a column has identical elements.
 #' The function will return TRUE if:
