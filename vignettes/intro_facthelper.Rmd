@@ -34,9 +34,9 @@ so that they don't get written over accidentally.
 
 ```{r}
 main_folder <- "inst/extdata/OSU_2019_example"
-data_folder <- here(main_folder, "data-raw")
-auxiliary_files <- here(main_folder, "auxiliary_files") 
-knitroutput_folder <- here(main_folder, "output")
+data_folder <- here::here(main_folder, "data-raw")
+auxiliary_files <- here::here(main_folder, "auxiliary_files") 
+knitroutput_folder <- here::here(main_folder, "output")
 ```
 ## Manual edits
 If there are any mistakes in numeric values or one-off typos, sometimes it is
@@ -78,7 +78,7 @@ data_raw2 <- imap(data_raw1, function(x, y){ x %>% mutate(sourcefile = y)})
 knitr::kable(head(data_raw2[[1]]))
 knitr::kable(head(data_raw2[[2]]))
 #save(data_raw2,
- #    file = here(knitroutput_folder, "data_raw2.RData"))
+ #    file = here::here(knitroutput_folder, "data_raw2.RData"))
 ```
 ### Remove duplicate columns
 Use `facthelpeR::rm_dup_col()` because it can detect and remove duplicates when:
@@ -102,7 +102,7 @@ colnames_summary <- colnames %>%
   group_by(colname) %>%
   summarize(across(everything(), ~ paste(na.omit(unique(.x)), collapse = "; ")))
 
-write.csv(colnames_summary, here(knitroutput_folder, "colnames_summary.csv"), row.names = FALSE)
+write.csv(colnames_summary, here::here(knitroutput_folder, "colnames_summary.csv"), row.names = FALSE)
 
 knitr::kable(colnames_summary)
 ```
@@ -132,7 +132,7 @@ to controlled vocabulary using the correct formatting, which is described in the
 
 ```{r}
 colnames_curation <- 
-  read.csv(here(auxiliary_files, "colnames_summary_aux.csv")) %>%
+  read.csv(here::here(auxiliary_files, "colnames_summary_aux.csv")) %>%
   # If a column name still needs to be checked/confirmed, leave the controlled_vocab 
   # column blank in the "colnames_summary_aux.csv" file.  
   # Before the renaming step, just set the unknowns to the 
@@ -152,7 +152,7 @@ knitr::kable(head(data_raw_rename1[[1]]))
 knitr::kable(head(data_raw_rename1[[2]]))
 
 save(data_raw_rename1,
-     file = here(knitroutput_folder, "data_raw_rename1.RData"))
+     file = here::here(knitroutput_folder, "data_raw_rename1.RData"))
 ```
 ### Some functions that may help explore the columns within the list of data
 There are often instances where column names are not used consistently between 
@@ -186,7 +186,7 @@ knitr::kable(cols)
 ```{r}
 data_all1 <- bind_rows(data_raw_rename1)
 save(data_all1,
-     file = here(knitroutput_folder,"data_all1.RData"))
+     file = here::here(knitroutput_folder,"data_all1.RData"))
 ```
 
 ## Curate column contents
