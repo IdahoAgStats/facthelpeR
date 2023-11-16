@@ -3,8 +3,7 @@
 \name{read_excelsheet}
 \alias{read_excelsheet}
 \alias{read.excelsheet}
-\title{Read one excel sheet with read_excel
-This function can be incorporated into read.sheets/ read.sheets may become deprecated}
+\title{Read one excel sheet with read_excel}
 \usage{
 read_excelsheet(
   path,
@@ -53,6 +52,9 @@ types.}
 \item{complete_cases}{A logical. The default TRUE will remove empty rows}
 }
 \description{
+This function can be incorporated into read.sheets/ read.sheets may become deprecated
+}
+\details{
 Note: this function was previously read.excelsheet()
 }
 \seealso{

@@ -32,6 +32,7 @@ read_sheets <- function(file_name, data_folder, skip_df){
 }
 
 #' Read one excel sheet with read_excel
+#'
 #' This function can be incorporated into read.sheets/ read.sheets may become deprecated
 #'
 #' Note: this function was previously read.excelsheet()
