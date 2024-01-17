@@ -82,7 +82,8 @@ read_multsheets <- function(data_folder,
         dat <- read_csv(file = path,
                         skip = current$header_end-1,
                         na = na,
-                        col_names = col_names)
+                        col_names = col_names,
+                        guess_max = guess_max)
 
       }
 
