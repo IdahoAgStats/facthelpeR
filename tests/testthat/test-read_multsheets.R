@@ -45,10 +45,10 @@ test_that("read_multsheets skips the correct rows and reads in the data as expec
 
 test_that("read_multsheets skips the correct rows and reads in the data as expected
           for .csv", {
-  sheets <- list_sheetnames(data_folder, "test_skiprows.xls") %>%
-    dplyr::mutate(header_end = 4) %>% dplyr::mutate(header_start = NA)
+  files <- list.files(data_folder, recursive = TRUE, pattern = "test_skiprows.csv")
+  sheet_info <- data.frame(filename = files, header_end = 4, header_start = NA)
 
-  df_list <- read_multsheets(data_folder, sheets, col_names = TRUE)
+  df_list <- read_multsheets(data_folder, sheet_info, col_names = TRUE)
   ans <- tibble(name1 = c(1,2,3), name2 = c("a", "b", "c"), name3 = c("a", "b", "c"))
 
   expect_equal(df_list[[1]], ans)
@@ -79,3 +79,10 @@ test_that("read_multsheets reads in multiple header rows correctly for .csv", {
 })
 
 
+test_that("read_multsheets uses guess_max input and guesses column types correctly for csv files", {
+files <- list.files(data_folder, recursive = TRUE, pattern = "test_guess_max.csv")
+sheet_info <- data.frame(filename = files, header_end = 1)
+
+df_list <- read_multsheets(data_folder, sheet_info, col_names = TRUE, na = "", guess_max = 2000)
+expect_type(df_list[[1]][["col2"]], "double")
+})
