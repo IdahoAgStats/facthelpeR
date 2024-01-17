@@ -26,4 +26,8 @@ will be set to NA}
 \description{
 Set -9 and 0s to NA for given columns
 }
+\seealso{
+Other clean column contents functions: 
+\code{\link{plot_map}()}
+}
 \concept{clean column contents functions}
