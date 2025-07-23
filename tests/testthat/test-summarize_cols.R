@@ -8,23 +8,28 @@ test_that("summarize.variables returns the correct summary", {
                 example = c("1","4","3","6"),
                 file_sheet = c(rep("df1",2),
                                rep("df2", 2)),
-                instance = rep(c(1L,2L), 2))
+                instance = rep(c(1L, 2L), 2))
   expect_equal(summarize.variables(ls1, NULL), ans)
+
 })
 
 test_that("find_col_info returns expected results", {
   cols <-  c("a","b", "c")
-  df <- data.frame(year = c(91, 92,92), a = 1:3, b = c(-9, -9, 2), c = c(NA, "a", "b") )
-  ans <- data.frame(n = c(3, 1, 2), contained_in = c("91;92", "92", "92"), variable = cols, example = c("1", "2", "a"))
+  df <- data.frame(year = c(91, 92, 92), a = 1:3, b = c(-9, -9, 2),
+                   c = c(NA, "a", "b"))
+  ans <- data.frame(n = c(3, 1, 2), contained_in = c("91;92", "92", "92"),
+                    variable = cols, example = c("1", "2", "a"))
   test <- find_col_info(df, cols, year)
-  expect_equal(test,ans)
+  expect_equal(test, ans)
 
 })
 
 test_that("find_col_info outputs a message if there are no columns to check", {
   cols <- vector()
-  df <- data.frame(year = c(91, 92,92), a = 1:3, b = c(-9, -9, 2), c = c(NA, "a", "b"))
+  df <- data.frame(year = c(91, 92, 92), a = 1:3,
+                   b = c(-9, -9, 2), c = c(NA, "a", "b"))
   ans <- "No column names left to check. Great job!"
   test <- find_col_info(df, cols, year)
   expect_equal(test, ans)
+
 })

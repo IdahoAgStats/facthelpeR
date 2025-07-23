@@ -18,7 +18,7 @@
 find_col_info <- function(df, cols_check, by_col){
   # added functionality to return a message instead of an error if cols_check
   # is an empty vector (no invalid column names left to check)
-  out <- if(length(cols_check) > 0) {
+  out <- if (length(cols_check) > 0) {
 
   df2 <- df %>%
     mutate(across(.cols = tidyselect::everything(),
@@ -54,23 +54,23 @@ find_col_info <- function(df, cols_check, by_col){
 #' @param reg_ex A regular expression to select column names
 #' @param reg_ex_exclude A regular expression to exclude columns
 #' Use NULL to return all column names
-#' It is possible to edit this function to use the function select_colsfromlist())
+#' It is possible to edit this function to use the function `select_colsfromlist()`
 #' @family summarize column functions
 #' @export
 summarize_variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){
   cols_only <- imap(data_list %>% discard(is.null), function(x, y){
 
-    if (is.null(reg_ex)){
+    if (is.null(reg_ex)) {
       dat_cols1 <- x
     } else {
       dat_cols1 <- x %>% select(tidyselect::matches(reg_ex))
     }
 
-    if (!is.null(reg_ex_exclude)){
+    if (!is.null(reg_ex_exclude)) {
       dat_cols1 <- dat_cols1 %>% select(!tidyselect::matches(reg_ex_exclude))
     }
 
-    if (ncol(dat_cols1) == 0){
+    if (ncol(dat_cols1) == 0) {
       ans2 <- NULL
     } else {
       col_type <- dat_cols1 %>%
