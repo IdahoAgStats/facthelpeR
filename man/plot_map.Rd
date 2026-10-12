@@ -36,7 +36,7 @@ still receive a warning that the output will contain list cols, you have duplica
 in range/row.
 }
 \seealso{
-Other clean column contents functions: 
-\code{\link{set_values_to_na}()}
+Other clean column contents functions:
+\code{\link[=set_values_to_na]{set_values_to_na()}}
 }
 \concept{clean column contents functions}

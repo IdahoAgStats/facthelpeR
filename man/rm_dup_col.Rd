@@ -25,7 +25,7 @@ the column with NAs is removed
 but does not take into account NAs
 }
 \seealso{
-Other clean columns functions: 
-\code{\link{rename_col}()}
+Other clean columns functions:
+\code{\link[=rename_col]{rename_col()}}
 }
 \concept{clean columns functions}

@@ -16,7 +16,7 @@ summarize.variables
 
 \item{reg_ex_exclude}{A regular expression to exclude columns
 Use NULL to return all column names
-It is possible to edit this function to use the function select_colsfromlist())}
+It is possible to edit this function to use the function \code{select_colsfromlist()}}
 }
 \description{
 Summarize information on variables that match a given regex.
@@ -27,10 +27,10 @@ This function is to help look at raw data in order to check which columns across
 contain the same information.
 }
 \seealso{
-Other summarize column functions: 
-\code{\link{find_col_info}()},
-\code{\link{select_colsfromlist}()},
-\code{\link{summarize_colnames}()},
-\code{\link{summarize_ncol}()}
+Other summarize column functions:
+\code{\link[=find_col_info]{find_col_info()}},
+\code{\link[=select_colsfromlist]{select_colsfromlist()}},
+\code{\link[=summarize_colnames]{summarize_colnames()}},
+\code{\link[=summarize_ncol]{summarize_ncol()}}
 }
 \concept{summarize column functions}

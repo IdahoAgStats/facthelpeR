@@ -24,11 +24,11 @@ over read_sheets)
 Note: this function was previously read.sheets()
 }
 \seealso{
-Other readin functions: 
-\code{\link{list_sheetnames}()},
-\code{\link{read_excelsheet}()},
-\code{\link{read_header}()},
-\code{\link{read_multsheets}()},
-\code{\link{read_ods_multsheets}()}
+Other readin functions:
+\code{\link[=list_sheetnames]{list_sheetnames()}},
+\code{\link[=read_excelsheet]{read_excelsheet()}},
+\code{\link[=read_header]{read_header()}},
+\code{\link[=read_multsheets]{read_multsheets()}},
+\code{\link[=read_ods_multsheets]{read_ods_multsheets()}}
 }
 \concept{readin functions}

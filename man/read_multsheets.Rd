@@ -67,11 +67,11 @@ This function must be provided a data.frame with file information.
 The data.frame can be initalized with the function \code{list_sheetnames()}
 }
 \seealso{
-Other readin functions: 
-\code{\link{list_sheetnames}()},
-\code{\link{read_excelsheet}()},
-\code{\link{read_header}()},
-\code{\link{read_ods_multsheets}()},
-\code{\link{read_sheets}()}
+Other readin functions:
+\code{\link[=list_sheetnames]{list_sheetnames()}},
+\code{\link[=read_excelsheet]{read_excelsheet()}},
+\code{\link[=read_header]{read_header()}},
+\code{\link[=read_ods_multsheets]{read_ods_multsheets()}},
+\code{\link[=read_sheets]{read_sheets()}}
 }
 \concept{readin functions}

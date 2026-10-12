@@ -41,7 +41,7 @@ being passed to rename_col.  See tests/understand_wrappers.R for more
 details
 }
 \seealso{
-Other clean columns functions: 
-\code{\link{rm_dup_col}()}
+Other clean columns functions:
+\code{\link[=rm_dup_col]{rm_dup_col()}}
 }
 \concept{clean columns functions}

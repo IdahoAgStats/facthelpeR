@@ -8,12 +8,19 @@
 \description{
 The facthelpeR package contains helper functions for importing and cleaning data.
 }
-\author{
-\strong{Maintainer}: Jacqueline Tay \email{jacquelinejtay@gmail.com}
-
-Other contributors:
+\seealso{
+Useful links:
 \itemize{
-  \item Emily Galvin \email{emilymgalvin@gmail.com} [contributor]
+  \item \url{https://idahoagstats.github.io/facthelpeR}
+}
+
+}
+\author{
+\strong{Maintainer}: Emily Galvin \email{emilymgalvin@gmail.com} [contributor]
+
+Authors:
+\itemize{
+  \item Jacqueline Tay \email{jacquelinejtay@gmail.com}
 }
 
 }

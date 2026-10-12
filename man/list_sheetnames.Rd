@@ -20,11 +20,11 @@ list.sheetnames(data_folder, files, reg_ex = NULL)
 Note: this function was previously list.sheetnames()
 }
 \seealso{
-Other readin functions: 
-\code{\link{read_excelsheet}()},
-\code{\link{read_header}()},
-\code{\link{read_multsheets}()},
-\code{\link{read_ods_multsheets}()},
-\code{\link{read_sheets}()}
+Other readin functions:
+\code{\link[=read_excelsheet]{read_excelsheet()}},
+\code{\link[=read_header]{read_header()}},
+\code{\link[=read_multsheets]{read_multsheets()}},
+\code{\link[=read_ods_multsheets]{read_ods_multsheets()}},
+\code{\link[=read_sheets]{read_sheets()}}
 }
 \concept{readin functions}

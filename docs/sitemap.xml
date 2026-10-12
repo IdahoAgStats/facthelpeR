@@ -1,132 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/articles/example_curation.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/intro_facthelper.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/facthelpeR-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/find_col_info.html</loc>
-  </url>
-  <url>
-    <loc>/reference/full_join_compare.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/list.sheetnames.html</loc>
-  </url>
-  <url>
-    <loc>/reference/list_sheetnames.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_df_index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_map.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read.excelheader.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read.excelsheet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read.sheets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_excelheader.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_excelsheet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_header.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_multsheets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_ods_multsheets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_sheets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rename.col.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rename.intdouble.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rename_col.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rm.dup_col.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rm_dup_col.html</loc>
-  </url>
-  <url>
-    <loc>/reference/select.colsfromlist.html</loc>
-  </url>
-  <url>
-    <loc>/reference/select_colsfromlist.html</loc>
-  </url>
-  <url>
-    <loc>/reference/set_values_to_na.html</loc>
-  </url>
-  <url>
-    <loc>/reference/split_df.html</loc>
-  </url>
-  <url>
-    <loc>/reference/split_direction.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summarize.colnames.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summarize.ncol.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summarize.variables.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summarize_colnames.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summarize_ncol.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summarize_variables.html</loc>
-  </url>
-  <url>
-    <loc>/reference/test.col_id_elements.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vec_rle.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://idahoagstats.github.io/facthelpeR/404.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/articles/example_curation.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/articles/index.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/articles/intro_facthelper.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/authors.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/index.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/LICENSE.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/news/index.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/facthelpeR-package.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/find_col_info.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/full_join_compare.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/index.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/list_sheetnames.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/make_df_index.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/plot_map.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/read_excelheader.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/read_excelsheet.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/read_header.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/read_multsheets.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/read_ods_multsheets.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/read_sheets.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/rename.intdouble.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/rename_col.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/rm_dup_col.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/select_colsfromlist.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/set_values_to_na.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/split_df.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/split_direction.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/summarize_colnames.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/summarize_ncol.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/summarize_variables.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/test.col_id_elements.html</loc></url>
+<url><loc>https://idahoagstats.github.io/facthelpeR/reference/vec_rle.html</loc></url>
 </urlset>
+

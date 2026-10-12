@@ -24,10 +24,10 @@ The function returns the proportion of the data.frames that contain the column n
 A wrapper for summarize_colnames to maintain backwards compatibility
 }
 \seealso{
-Other summarize column functions: 
-\code{\link{find_col_info}()},
-\code{\link{select_colsfromlist}()},
-\code{\link{summarize_ncol}()},
-\code{\link{summarize_variables}()}
+Other summarize column functions:
+\code{\link[=find_col_info]{find_col_info()}},
+\code{\link[=select_colsfromlist]{select_colsfromlist()}},
+\code{\link[=summarize_ncol]{summarize_ncol()}},
+\code{\link[=summarize_variables]{summarize_variables()}}
 }
 \concept{summarize column functions}

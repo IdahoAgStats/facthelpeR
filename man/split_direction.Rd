@@ -18,7 +18,7 @@ See stackoverflow: https://stackoverflow.com/questions/58251748/how-to-efficient
 and GitHub: https://github.com/yusuzech/tidyverse_notes/blob/master/utility/read_excel_tables.md
 }
 \seealso{
-Other split tables functions: 
-\code{\link{split_df}()}
+Other split tables functions:
+\code{\link[=split_df]{split_df()}}
 }
 \concept{split tables functions}

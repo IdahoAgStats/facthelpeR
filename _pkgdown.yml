@@ -1,3 +1,13 @@
+url: https://idahoagstats.github.io/facthelpeR/
+
+template:
+  bootstrap: 5
+  light-switch: true
+  math-rendering: mathjax
+
+deploy:
+  install_metadata: true
+
 reference:
 - title: Read-in functions
   contents:

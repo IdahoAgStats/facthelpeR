@@ -23,7 +23,7 @@ This function can detect several tables even if they are not neatly placed
 If you still see entire rows or columns missing. Please increase complexity
 }
 \seealso{
-Other split tables functions: 
-\code{\link{split_direction}()}
+Other split tables functions:
+\code{\link[=split_direction]{split_direction()}}
 }
 \concept{split tables functions}

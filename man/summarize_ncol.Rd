@@ -26,10 +26,10 @@ This function detects columns with similar names within a dataset
 A wrapper for summarize_ncol to maintain backwards compatibility
 }
 \seealso{
-Other summarize column functions: 
-\code{\link{find_col_info}()},
-\code{\link{select_colsfromlist}()},
-\code{\link{summarize_colnames}()},
-\code{\link{summarize_variables}()}
+Other summarize column functions:
+\code{\link[=find_col_info]{find_col_info()}},
+\code{\link[=select_colsfromlist]{select_colsfromlist()}},
+\code{\link[=summarize_colnames]{summarize_colnames()}},
+\code{\link[=summarize_variables]{summarize_variables()}}
 }
 \concept{summarize column functions}

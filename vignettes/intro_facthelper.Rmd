@@ -69,9 +69,9 @@ sheet_info_xls <- list_sheetnames(data_folder, files_xls)
 
 knitr::kable(sheet_info_xls)
 ```
-### Use read.multsheets()
+### Use read_multsheets()
 ```{r}
-data_raw1 <- read.multsheets(data_folder, sheet_info_csv, na = c("NA"), col_names = TRUE)
+data_raw1 <- read_multsheets(data_folder, sheet_info_csv, na = c("NA"), col_names = TRUE)
 data_raw2 <- imap(data_raw1, function(x, y){ x %>% mutate(sourcefile = y)})
 
 

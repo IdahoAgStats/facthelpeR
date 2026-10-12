@@ -1,0 +1,9 @@
+pandoc: '3.11'
+pkgdown: 2.2.1
+pkgdown_sha: ~
+articles:
+  intro_facthelper: intro_facthelper.html
+last_built: 2026-10-12T06:21Z
+urls:
+  reference: https://idahoagstats.github.io/facthelpeR/reference
+  article: https://idahoagstats.github.io/facthelpeR/articles

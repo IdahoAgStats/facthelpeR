@@ -27,11 +27,11 @@ https://github.com/tidyverse/readxl/issues/194#issuecomment-266829259}
 Note: this function was previously read.excelheader()/read_excelheader()
 }
 \seealso{
-Other readin functions: 
-\code{\link{list_sheetnames}()},
-\code{\link{read_excelsheet}()},
-\code{\link{read_multsheets}()},
-\code{\link{read_ods_multsheets}()},
-\code{\link{read_sheets}()}
+Other readin functions:
+\code{\link[=list_sheetnames]{list_sheetnames()}},
+\code{\link[=read_excelsheet]{read_excelsheet()}},
+\code{\link[=read_multsheets]{read_multsheets()}},
+\code{\link[=read_ods_multsheets]{read_ods_multsheets()}},
+\code{\link[=read_sheets]{read_sheets()}}
 }
 \concept{readin functions}

@@ -20,10 +20,10 @@ contain non-NA entries (for example if want to search trial, year, or filename),
 and return the first non-NA entry as an example
 }
 \seealso{
-Other summarize column functions: 
-\code{\link{select_colsfromlist}()},
-\code{\link{summarize_colnames}()},
-\code{\link{summarize_ncol}()},
-\code{\link{summarize_variables}()}
+Other summarize column functions:
+\code{\link[=select_colsfromlist]{select_colsfromlist()}},
+\code{\link[=summarize_colnames]{summarize_colnames()}},
+\code{\link[=summarize_ncol]{summarize_ncol()}},
+\code{\link[=summarize_variables]{summarize_variables()}}
 }
 \concept{summarize column functions}

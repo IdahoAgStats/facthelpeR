@@ -43,11 +43,11 @@ lapply(files, read_ods_multsheets)
 }
 }
 \seealso{
-Other readin functions: 
-\code{\link{list_sheetnames}()},
-\code{\link{read_excelsheet}()},
-\code{\link{read_header}()},
-\code{\link{read_multsheets}()},
-\code{\link{read_sheets}()}
+Other readin functions:
+\code{\link[=list_sheetnames]{list_sheetnames()}},
+\code{\link[=read_excelsheet]{read_excelsheet()}},
+\code{\link[=read_header]{read_header()}},
+\code{\link[=read_multsheets]{read_multsheets()}},
+\code{\link[=read_sheets]{read_sheets()}}
 }
 \concept{readin functions}

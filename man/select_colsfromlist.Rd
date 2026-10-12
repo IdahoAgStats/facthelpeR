@@ -23,10 +23,10 @@ Select columns from data.frames stored within a list
 A wrapper for select_colsfromlist to maintain backwards compatibility
 }
 \seealso{
-Other summarize column functions: 
-\code{\link{find_col_info}()},
-\code{\link{summarize_colnames}()},
-\code{\link{summarize_ncol}()},
-\code{\link{summarize_variables}()}
+Other summarize column functions:
+\code{\link[=find_col_info]{find_col_info()}},
+\code{\link[=summarize_colnames]{summarize_colnames()}},
+\code{\link[=summarize_ncol]{summarize_ncol()}},
+\code{\link[=summarize_variables]{summarize_variables()}}
 }
 \concept{summarize column functions}
