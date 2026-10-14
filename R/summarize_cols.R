@@ -118,7 +118,7 @@ select_colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
 
     dat_cols1 <- dat %>% select(tidyselect::matches(reg_ex))
 
-    if (ncol(dat_cols1) > 0){
+    if (ncol(dat_cols1) > 0) {
       names(dat_cols1) <- paste(names(dat_cols1), name, x)
     }
 
@@ -127,7 +127,7 @@ select_colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
     return(dat_cols)
   })
 
-  if (multnames_only){
+  if (multnames_only) {
     cols_only <- cols_only %>% keep(~ncol(.x)>1)
   }
 
@@ -153,7 +153,7 @@ summarize_ncol <- function(ls, col_vec){
     #print(x)
     cols_summary <- summarize_variables(ls, x)
 
-    if (nrow(cols_summary) == 0){
+    if (nrow(cols_summary) == 0) {
       warning(paste("There are no instances of variable:", x))
       cols_n <- NULL
     } else {
