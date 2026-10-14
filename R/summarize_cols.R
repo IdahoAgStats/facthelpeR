@@ -15,27 +15,30 @@
 #' @param by_col A bare variable to summarise
 #' @family summarize column functions
 #' @export
-find_col_info <- function(df, cols_check, by_col){
+find_col_info <- function(df, cols_check, by_col) {
   # added functionality to return a message instead of an error if cols_check
   # is an empty vector (no invalid column names left to check)
   out <- if (length(cols_check) > 0) {
+    df2 <- df %>%
+      mutate(across(
+        .cols = tidyselect::everything(),
+        .fns = ~ ifelse(.x == -9, NA, .x)
+      ))
 
-  df2 <- df %>%
-    mutate(across(.cols = tidyselect::everything(),
-                  .fns = ~ ifelse(.x == -9, NA, .x)))
+    ans <- map(cols_check, function(x) {
+      x_sym <- rlang::sym(x)
+      ans <- df2 %>%
+        filter(!is.na(!!x_sym)) %>%
+        dplyr::summarise(
+          n = n(), # count the total number of entries
+          contained_in = paste(unique({{ by_col }}), collapse = ";")
+        ) %>%
+        unique(.) %>%
+        mutate(variable = x) %>%
+        mutate(example = as.character(first(na.omit(df2[[x]]))))
+    })
 
-  ans <- map(cols_check, function(x){
-    x_sym <- rlang::sym(x)
-    ans <- df2 %>%
-      filter(!is.na(!!x_sym)) %>%
-      dplyr::summarise(n = n(),  # count the total number of entries
-                       contained_in = paste(unique({{by_col}}), collapse = ";")) %>%
-      unique(.) %>%
-      mutate(variable = x) %>%
-      mutate(example = as.character(first(na.omit(df2[[x]]))))
-  })
-
-  bind_rows(ans) %>% arrange(variable)
+    bind_rows(ans) %>% arrange(variable)
   } else {
     print("No column names left to check. Great job!")
   }
@@ -57,9 +60,8 @@ find_col_info <- function(df, cols_check, by_col){
 #' It is possible to edit this function to use the function `select_colsfromlist()`
 #' @family summarize column functions
 #' @export
-summarize_variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){
-  cols_only <- imap(data_list %>% discard(is.null), function(x, y){
-
+summarize_variables <- function(data_list, reg_ex, reg_ex_exclude = NULL) {
+  cols_only <- imap(data_list %>% discard(is.null), function(x, y) {
     if (is.null(reg_ex)) {
       dat_cols1 <- x
     } else {
@@ -108,10 +110,9 @@ summarize_variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){
 #' with more than one column corresponding to a given regular expression
 #' @family summarize column functions
 #' @export
-select_colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
-
+select_colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE) {
   data_list <- data_list %>% discard(is.null)
-  cols_only <- map(1:length(data_list), function(x){
+  cols_only <- map(1:length(data_list), function(x) {
     #print(x)
     dat <- data_list[[x]]
     name <- names(data_list[x])
@@ -128,7 +129,7 @@ select_colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
   })
 
   if (multnames_only) {
-    cols_only <- cols_only %>% keep(~ncol(.x)>1)
+    cols_only <- cols_only %>% keep(~ ncol(.x) > 1)
   }
 
   cols_only_bind <- bind_cols(cols_only)
@@ -147,9 +148,8 @@ select_colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
 #' in order to summarize the number of columns associated with that regex string
 #' @family summarize column functions
 #' @export
-summarize_ncol <- function(ls, col_vec){
-
-  col_vars_n1 <- map(col_vec, function(x){
+summarize_ncol <- function(ls, col_vec) {
+  col_vars_n1 <- map(col_vec, function(x) {
     #print(x)
     cols_summary <- summarize_variables(ls, x)
 
@@ -157,12 +157,11 @@ summarize_ncol <- function(ls, col_vec){
       warning(paste("There are no instances of variable:", x))
       cols_n <- NULL
     } else {
-    cols_n <- cols_summary %>%
-      group_by(file_sheet) %>%
-      summarise(n = n()) %>%
-      mutate(col_var = x)
+      cols_n <- cols_summary %>%
+        group_by(file_sheet) %>%
+        summarise(n = n()) %>%
+        mutate(col_var = x)
     }
-
   })
 
   col_vars_n2 <- bind_rows(col_vars_n1) %>%
@@ -179,22 +178,20 @@ summarize_ncol <- function(ls, col_vec){
 #' in order to summarize the number of columns associated with that regex string
 #' @family summarize column functions
 #' @export
-summarize_colnames <- function(ls, col_vec){
-
-  col_var_name1 <- map(col_vec, function(x){
+summarize_colnames <- function(ls, col_vec) {
+  col_var_name1 <- map(col_vec, function(x) {
     #print(x)
     cols_summary <- summarize_variables(ls, x)
 
-    if (nrow(cols_summary) == 0){
+    if (nrow(cols_summary) == 0) {
       warning(paste("There are no instances of variable:", x))
       col_names <- NULL
     } else {
       col_names <- cols_summary %>%
         group_by(colname) %>%
-        summarise(prop_files = n()/length(ls)) %>%
+        summarise(prop_files = n() / length(ls)) %>%
         mutate(col_var = x)
     }
-
   })
 
   col_var_name2 <- bind_rows(col_var_name1)
@@ -205,13 +202,17 @@ summarize_colnames <- function(ls, col_vec){
 #' @rdname summarize_variables
 #' @usage summarize.variables
 #' @export summarize.variables
-summarize.variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){
-  message("This function name is being retained for backwards compatibility.
-          Please use summarize_variables()")
+summarize.variables <- function(data_list, reg_ex, reg_ex_exclude = NULL) {
+  message(
+    "This function name is being retained for backwards compatibility.
+          Please use summarize_variables()"
+  )
 
-  summarize_variables(data_list = data_list,
-                      reg_ex = reg_ex,
-                      reg_ex_exclude = reg_ex_exclude)
+  summarize_variables(
+    data_list = data_list,
+    reg_ex = reg_ex,
+    reg_ex_exclude = reg_ex_exclude
+  )
 }
 
 
@@ -220,13 +221,17 @@ summarize.variables <- function(data_list, reg_ex, reg_ex_exclude = NULL){
 #' @rdname select_colsfromlist
 #' @usage select.colsfromlist
 #' @export select.colsfromlist
-select.colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
-  message("This function name is being retained for backwards compatibility.
-          Please use select_colsfromlist()")
+select.colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE) {
+  message(
+    "This function name is being retained for backwards compatibility.
+          Please use select_colsfromlist()"
+  )
 
-  select_colsfromlist(data_list = data_list,
-                      reg_ex = reg_ex,
-                      multnames_only = multnames_only)
+  select_colsfromlist(
+    data_list = data_list,
+    reg_ex = reg_ex,
+    multnames_only = multnames_only
+  )
 }
 
 
@@ -235,9 +240,11 @@ select.colsfromlist <- function(data_list, reg_ex, multnames_only = FALSE){
 #' @rdname summarize_ncol
 #' @usage summarize.ncol
 #' @export summarize.ncol
-summarize.ncol <- function(ls, col_vec){
-  message("This function name is being retained for backwards compatibility.
-          Please use summarize_ncol()")
+summarize.ncol <- function(ls, col_vec) {
+  message(
+    "This function name is being retained for backwards compatibility.
+          Please use summarize_ncol()"
+  )
 
   summarize_ncol(ls = ls, col_vec = col_vec)
 }
@@ -247,9 +254,11 @@ summarize.ncol <- function(ls, col_vec){
 #' @rdname summarize_colnames
 #' @usage summarize.colnames
 #' @export summarize.colnames
-summarize.colnames <- function(ls, col_vec){
-  message("This function name is being retained for backwards compatibility.
-          Please use summarize_colnames()")
+summarize.colnames <- function(ls, col_vec) {
+  message(
+    "This function name is being retained for backwards compatibility.
+          Please use summarize_colnames()"
+  )
 
   summarize_colnames(ls = ls, col_vec = col_vec)
 }
